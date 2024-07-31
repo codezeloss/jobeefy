@@ -1,9 +1,7 @@
 import HeaderLogo from "@/components/HeaderLogo";
 import Navigation from "@/components/Navigation";
-import {ClerkLoaded, ClerkLoading, UserButton} from "@clerk/nextjs";
-import {Loader2} from "lucide-react";
 import WelcomeMsg from "@/components/WelcomeMsg";
-import {ModeToggle} from "@/components/ModeToggle";
+import HeaderButtons from "@/components/HeaderButtons";
 
 export default function Header() {
     return (
@@ -15,27 +13,11 @@ export default function Header() {
                         <Navigation/>
                     </div>
 
-                    <div className="">
-                        <ClerkLoaded>
-                            <div className="flex items-center text-sm gap-2">
-                                <UserButton appearance={{
-                                    elements: {
-                                        avatarBox: "size-9",
-                                    },
-                                }}/>
-                                <ModeToggle/>
-                            </div>
-                        </ClerkLoaded>
-                        <ClerkLoading>
-                            <Loader2 className="size-8 animate-spin text-slate-400"/>
-                        </ClerkLoading>
-                    </div>
+                    <HeaderButtons/>
                 </div>
 
                 <WelcomeMsg/>
             </div>
-
-
         </div>
     );
 }

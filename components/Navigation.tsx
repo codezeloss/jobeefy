@@ -6,37 +6,57 @@ import {Sheet, SheetContent, SheetTrigger,} from "@/components/ui/sheet"
 import {useMedia} from "react-use"
 import {useState} from "react";
 import {Button} from "@/components/ui/button";
-import {Menu} from "lucide-react";
+import {BookmarkCheck, Building2, ChartNoAxesCombined, Compass, House, List, Menu, User} from "lucide-react";
 
-const routes = [
+const userRoutes = [
     {
         href: "/",
         label: "Home",
+        icon: <House size={18}/>
     },
     {
         href: "/browse",
         label: "Browse",
+        icon: <Compass size={18}/>
     },
     {
         href: "/profile",
         label: "Profile",
+        icon: <User size={18}/>
     },
     {
         href: "/saved",
         label: "Saved Jobs",
+        icon: <BookmarkCheck size={18}/>
+    }
+]
+const adminRoutes = [
+    {
+        href: "/admin/jobs",
+        label: "Jobs",
+        icon: <List size={18}/>
     },
     {
-        href: "/settings",
-        label: "Settings",
+        href: "/admin/companies",
+        label: "Companies",
+        icon: <Building2 size={18}/>
     },
+    {
+        href: "/admin/analytics",
+        label: "Analytics",
+        icon: <ChartNoAxesCombined size={18}/>
+    }
 ]
 
 export default function Navigation() {
-    const [isOpen, setIsOpen] = useState(false)
-
     const pathname = usePathname()
     const router = useRouter()
+
+    const [isOpen, setIsOpen] = useState(false)
+
     const isMobile = useMedia("(max-width: 1024px)", false)
+    const isAdmin = pathname?.startsWith("/admin")
+    const routes = isAdmin ? adminRoutes : userRoutes
 
     const onClick = (href: string) => {
         router.push(href)
@@ -59,9 +79,9 @@ export default function Navigation() {
                                 key={route.href}
                                 variant={route.href === pathname ? "secondary" : "ghost"}
                                 onClick={() => onClick(route.href)}
-                                className="w-full justify-start"
+                                className="w-full justify-start flex items-center gap-x-2"
                             >
-                                {route.label}
+                                {route.icon} {route.label}
                             </Button>
                         ))}
                     </nav>
@@ -73,9 +93,10 @@ export default function Navigation() {
             <nav className="hidden lg:flex items-center gap-x-2 overflow-x-auto">
                 {routes.map((route, index) => (
                     <NavButton
-                        key={route.href}
+                        key={index}
                         href={route.href}
                         label={route.label}
+                        icon={route.icon}
                         isActive={pathname === route.href}
                     />
                 ))}

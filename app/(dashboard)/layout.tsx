@@ -8,7 +8,7 @@ export default function DashboardLayout({children}: Readonly<{
     return (
         <>
             <Header/>
-            <main className="px-3 lg:px-14">{children}</main>
+            <main className="w-full h-full p-3 lg:p-14">{children}</main>
             <Footer/>
         </>
     );
