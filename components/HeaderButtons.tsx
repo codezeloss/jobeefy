@@ -15,7 +15,7 @@ export default function HeaderButtons() {
     return (
         <div>
             <ClerkLoaded>
-                <div className="flex items-center text-sm gap-2">
+                <div className="flex items-center text-sm gap-x-3">
                     <div className="">
                         {isAdmin || isUser ? (
                             <Link href="/">
@@ -35,7 +35,7 @@ export default function HeaderButtons() {
 
                     <UserButton appearance={{
                         elements: {
-                            avatarBox: "size-9",
+                            avatarBox: "size-8",
                         },
                     }}/>
                 </div>
