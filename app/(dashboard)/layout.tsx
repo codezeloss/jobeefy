@@ -1,6 +1,6 @@
 import {ReactNode} from "react";
 import Header from "@/components/Header";
-import Footer from "@/components/Footer";
+// import Footer from "@/components/Footer";
 import {Toaster} from "@/components/ui/toaster";
 
 export default function DashboardLayout({children}: Readonly<{
@@ -14,7 +14,7 @@ export default function DashboardLayout({children}: Readonly<{
                 <Toaster/>
                 {children}
             </main>
-            <Footer/>
+            {/*<Footer/>*/}
         </>
     );
 }

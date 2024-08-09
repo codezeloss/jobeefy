@@ -46,7 +46,7 @@ export default function JobCreatePage() {
     }
 
     return (
-        <div className="max-w-lg mx-auto w-full h-full flex items-center justify-center p-6">
+        <div className="max-w-lg mx-auto w-full h-[70vh] flex items-center justify-center p-6">
             <div>
                 <div className="w-full h-full flex flex-col mb-4">
                     <h1 className="font-semibold text-lg md:text-2xl mb-1">Name your Job</h1>
