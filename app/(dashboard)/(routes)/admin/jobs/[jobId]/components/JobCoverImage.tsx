@@ -21,7 +21,7 @@ interface Props {
 }
 
 const formSchema = z.object({
-    imageURL: z.string().min(2, {message: "Cover Image is required"}).max(50),
+    imageURL: z.string().min(2, {message: "Cover Image is required"}),
 })
 
 export default function JobCoverImage({initialData, jobId}: Props) {
