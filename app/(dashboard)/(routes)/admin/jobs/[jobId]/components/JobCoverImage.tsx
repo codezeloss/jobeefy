@@ -77,14 +77,16 @@ export default function JobCoverImage({initialData, jobId}: Props) {
                             </div>
                             <FormControl>
                                 <div>
-                                    {uploadedCoverImg ?
-                                        <Image
-                                            className="w-full h-full"
-                                            src={uploadedCoverImg}
-                                            alt="Uploaded image"
-                                            width={200}
-                                            height={200}
-                                        /> : <UploadthingDropzone
+                                    <Image
+                                        className="w-full h-full"
+                                        src={uploadedCoverImg || form.getValues().imageURL}
+                                        alt="Uploaded image"
+                                        width={200}
+                                        height={200}
+                                    />
+
+                                    {!uploadedCoverImg &&
+                                        <UploadthingDropzone
                                             endpoint="jobCoverImage"
                                             onClientUploadComplete={(res) => {
                                                 setUploadedCoverImg(res[0]?.serverData?.uploadedFile)
@@ -101,7 +103,8 @@ export default function JobCoverImage({initialData, jobId}: Props) {
                                                     description: "Image cannot be uploaded"
                                                 })
                                             }}
-                                        />}
+                                        />
+                                    }
                                 </div>
                             </FormControl>
                             <FormMessage/>
@@ -111,7 +114,7 @@ export default function JobCoverImage({initialData, jobId}: Props) {
 
 
                 <div className="flex items-center gap-x-2">
-                    <Button type="submit" disabled={!isValid || isSubmitting}>Save</Button>
+                    <Button type="submit" disabled={false}>Save</Button>
                     <Button type="button" variant="outline" onClick={toggleEditing}>Cancel</Button>
                 </div>
             </form>
