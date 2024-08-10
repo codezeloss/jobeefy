@@ -1,9 +1,12 @@
 import {redirect} from "next/navigation";
 import {auth} from "@clerk/nextjs/server";
 import prismaDB from "@/lib/prismaDB";
-import {Button} from "@/components/ui/button";
-import {ArrowLeft, Trash2Icon} from "lucide-react";
+import {ArrowLeft, LayoutDashboard, ListChecks} from "lucide-react";
 import JobPublishActions from "@/app/(dashboard)/(routes)/admin/jobs/[jobId]/components/JobPublishActions";
+import AlertBanner from "@/components/AlertBanner";
+import JobDetailTile from "@/app/(dashboard)/(routes)/admin/jobs/[jobId]/components/JobDetailTile";
+import React from "react";
+import TitleForm from "@/app/(dashboard)/(routes)/admin/jobs/[jobId]/components/TitleForm";
 
 export default async function JobDetailsPage({params}: { params: { jobId: string } }) {
     // ** Verify the mongoDB ID
@@ -36,12 +39,12 @@ export default async function JobDetailsPage({params}: { params: { jobId: string
 
     return (
         <div>
-            <div className="flex items-center gap-x-4 text-neutral-500 text-sm mb-4">
+            <div className="flex items-center gap-x-4 text-neutral-500 text-sm mb-5">
                 <ArrowLeft className="size-4" />
                 <p className="font-semibold">Back</p>
             </div>
 
-            <div className="w-full flex items-center justify-between">
+            <div className="w-full flex items-center justify-between mb-4">
                 <div className="flex flex-col gap-y-2">
                     <h1 className="font-semibold text-2xl">Job Setup</h1>
                     <p className="font-medium text-sm text-neutral-500">Complete all fields {completionText}</p>
@@ -52,6 +55,34 @@ export default async function JobDetailsPage({params}: { params: { jobId: string
                     isPublished={job.isPublished}
                     disabled={!isComplete}
                 />
+            </div>
+
+            {!job.isPublished &&
+                <AlertBanner
+                    variant="destructive"
+                    title="Warning"
+                    description="This job in unpublished. It will not be visible in the jobs list."
+                />
+            }
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-16">
+                {/* Left */}
+                <div className="">
+                    <JobDetailTile
+                        title="Customize your Job"
+                        icon={LayoutDashboard }
+                    />
+                    <TitleForm initialData={job} jobId={job.id}/>
+                </div>
+
+                {/* Right */}
+                <div className="">
+                    <JobDetailTile
+                        title="Job Requirements"
+                        icon={ListChecks}
+                    />
+                    <div className=""></div>
+                </div>
             </div>
         </div>
     );

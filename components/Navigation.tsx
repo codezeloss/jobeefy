@@ -68,7 +68,7 @@ export default function Navigation() {
             <Sheet open={isOpen} onOpenChange={setIsOpen}>
                 <SheetTrigger>
                     <Button variant="outline" size="sm"
-                            className="font-normal bg-white/10 hover:bg-white/20 hover:text-white border-none focus-visible:ring-offset-0 focus-visible:ring-transparent outline-none text-white focus:bg-white/30 transition">
+                            className="font-normal dark:bg-white/10 dark:hover:bg-white/20 dark:hover:text-white bg-slate-100 hover:bg-black/20 hover:text-black border-none focus-visible:ring-offset-0 focus-visible:ring-transparent outline-none dark:text-white text-black dark:focus:bg-white/30 focus:bg-black/30 transition">
                         <Menu className="size-4"/>
                     </Button>
                 </SheetTrigger>

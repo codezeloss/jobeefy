@@ -12,11 +12,7 @@ export const metadata: Metadata = {
     description: "The only & the best Job Portal you're looking for!",
 };
 
-export default function RootLayout({
-                                       children,
-                                   }: Readonly<{
-    children: ReactNode;
-}>) {
+export default function RootLayout({children}: Readonly<{children: ReactNode}>) {
     return (
         <ClerkProvider>
             <html lang="en">
