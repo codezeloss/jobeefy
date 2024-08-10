@@ -7,17 +7,19 @@ import AlertBanner from "@/components/AlertBanner";
 import JobDetailTile from "@/app/(dashboard)/(routes)/admin/jobs/[jobId]/components/JobDetailTile";
 import React from "react";
 import TitleForm from "@/app/(dashboard)/(routes)/admin/jobs/[jobId]/components/TitleForm";
+import CategoryForm from "@/app/(dashboard)/(routes)/admin/jobs/[jobId]/components/CategoryForm";
+import JobCoverImage from "@/app/(dashboard)/(routes)/admin/jobs/[jobId]/components/JobCoverImage";
 
 export default async function JobDetailsPage({params}: { params: { jobId: string } }) {
     // ** Verify the mongoDB ID
     const validateObjectIdRegex = /^[0-9a-fA-F]{24}$/
-    if(!validateObjectIdRegex.test(params.jobId)) {
+    if (!validateObjectIdRegex.test(params.jobId)) {
         return redirect("/admin/jobs")
     }
 
     const {userId} = auth()
 
-    if(!userId) return redirect("/")
+    if (!userId) return redirect("/")
 
     const job = await prismaDB.job.findUnique({
         where: {
@@ -26,10 +28,15 @@ export default async function JobDetailsPage({params}: { params: { jobId: string
         }
     })
 
-    if(!job) return redirect("/admin/jobs")
+    const categories = await prismaDB.category.findMany({
+        orderBy: {name: "asc"}
+    })
+
+
+    if (!job) return redirect("/admin/jobs")
 
     const requiredFields = [
-        job?.title, job?.description, job?.imageURL
+        job?.title, job?.description, job?.imageURL, job?.categoryId
     ]
 
     const totalFields = requiredFields.length
@@ -40,7 +47,7 @@ export default async function JobDetailsPage({params}: { params: { jobId: string
     return (
         <div>
             <div className="flex items-center gap-x-4 text-neutral-500 text-sm mb-5">
-                <ArrowLeft className="size-4" />
+                <ArrowLeft className="size-4"/>
                 <p className="font-semibold">Back</p>
             </div>
 
@@ -65,17 +72,24 @@ export default async function JobDetailsPage({params}: { params: { jobId: string
                 />
             }
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-16">
-                {/* Left */}
-                <div className="">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 my-16">
+                <div className="space-y-6">
                     <JobDetailTile
                         title="Customize your Job"
-                        icon={LayoutDashboard }
+                        icon={LayoutDashboard}
                     />
                     <TitleForm initialData={job} jobId={job.id}/>
+                    <CategoryForm
+                        options={categories.map(category => ({
+                            label: category.name,
+                            value: category.id
+                        }))}
+                        initialData={job}
+                        jobId={job.id}
+                    />
+                    <JobCoverImage initialData={job} jobId={job.id}/>
                 </div>
 
-                {/* Right */}
                 <div className="">
                     <JobDetailTile
                         title="Job Requirements"

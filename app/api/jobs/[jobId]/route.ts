@@ -2,7 +2,7 @@ import {NextResponse} from "next/server";
 import {auth} from "@clerk/nextjs/server";
 import prismaDB from "@/lib/prismaDB";
 
-export async function PATCH(req: Request, {params}: {params: {jobId: string}}) {
+export async function PATCH(req: Request, {params}: { params: { jobId: string } }) {
     try {
         const {userId} = auth()
         const {jobId} = params;
@@ -25,6 +25,6 @@ export async function PATCH(req: Request, {params}: {params: {jobId: string}}) {
         return NextResponse.json(job)
     } catch (e) {
         console.log("[JOBS_PATCH]", e);
-        return new NextResponse("Internal error, cannot create the Job!", {status: 500});
+        return new NextResponse("Internal error, cannot update the Job!", {status: 500});
     }
 }
