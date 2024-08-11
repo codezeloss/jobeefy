@@ -1,32 +1,30 @@
 "use client"
 
-import {z} from "zod";
-import {useRouter} from "next/navigation";
-import {useToast} from "@/components/ui/use-toast";
-import {useState} from "react";
+import {z} from "zod"
 import {useForm} from "react-hook-form";
 import {zodResolver} from "@hookform/resolvers/zod";
-import axios from "axios";
-import {Button} from "@/components/ui/button";
-import {Form, FormField, FormItem, FormLabel, FormMessage,} from "@/components/ui/form"
-import {Job} from "@prisma/client";
+import {useRouter} from "next/navigation";
+import {useState} from "react";
+import {Button} from "@/components/ui/button"
+import {Form, FormControl, FormField, FormItem, FormLabel, FormMessage,} from "@/components/ui/form"
+import {Input} from "@/components/ui/input"
 import {Pencil} from "lucide-react";
-import ComboBox from "@/components/ComboBox";
+import {useToast} from "@/components/ui/use-toast";
+import axios from "axios";
 
 interface Props {
-    initialData: Job,
-    jobId: string,
-    options: { label: string, value: string }[]
+    initialData: {
+        title: string
+    },
+    jobId: string
 }
 
 const formSchema = z.object({
-    categoryId: z.string({
-        required_error: "Please select a category!",
-    }).min(1),
+    title: z.string().min(2, {message: "Title is required"}).max(50),
 })
 
 
-export default function JobCategoryForm({initialData, jobId, options}: Props) {
+export default function JobTitleForm({initialData, jobId}: Props) {
     const router = useRouter()
     const {toast} = useToast()
     const [isEditing, setIsEditing] = useState(false)
@@ -34,7 +32,7 @@ export default function JobCategoryForm({initialData, jobId, options}: Props) {
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
-            categoryId: initialData?.categoryId || ""
+            title: initialData.title
         },
     })
 
@@ -61,28 +59,26 @@ export default function JobCategoryForm({initialData, jobId, options}: Props) {
 
     return (
         <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)}
-                  className="space-y-4 bg-slate-100/20 rounded p-4 border border-slate-200">
+            <form
+                onSubmit={form.handleSubmit(onSubmit)}
+                className="space-y-4 bg-slate-100/20 rounded p-4 border border-slate-200"
+            >
                 <FormField
                     control={form.control}
-                    name="categoryId"
+                    name="title"
                     render={({field}) => (
-                        <FormItem className="flex flex-col">
+                        <FormItem>
                             <div className="flex items-center justify-between mb-2">
-                                <FormLabel>Job Category</FormLabel>
+                                <FormLabel>Job Title</FormLabel>
                                 {!isEditing &&
                                     <Button type="button" size="icon" variant="secondary" onClick={toggleEditing}>
                                         <Pencil className="size-3.5"/>
                                     </Button>
                                 }
                             </div>
-                            <ComboBox
-                                heading="category"
-                                form={form}
-                                options={options}
-                                disabled={!isEditing || isSubmitting}
-                                value={field.value}
-                            />
+                            <FormControl>
+                                <Input disabled={!isEditing || isSubmitting} placeholder="Content creator" {...field} />
+                            </FormControl>
                             <FormMessage/>
                         </FormItem>
                     )}
@@ -98,4 +94,3 @@ export default function JobCategoryForm({initialData, jobId, options}: Props) {
         </Form>
     );
 }
-

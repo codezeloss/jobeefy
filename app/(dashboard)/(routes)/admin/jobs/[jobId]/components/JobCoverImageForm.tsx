@@ -24,7 +24,7 @@ const formSchema = z.object({
     imageURL: z.string(),
 })
 
-export default function JobCoverImage({initialData, jobId}: Props) {
+export default function JobCoverImageForm({initialData, jobId}: Props) {
     const {toast} = useToast()
     const router = useRouter()
     const [isEditing, setIsEditing] = useState(false)
@@ -43,14 +43,14 @@ export default function JobCoverImage({initialData, jobId}: Props) {
             const response = await axios.patch(`/api/jobs/${jobId}`, values)
             toast({
                 variant: "default",
-                title: "Job updated successfully"
+                title: "✅ Job updated successfully"
             })
             toggleEditing()
             router.refresh()
         } catch (e) {
             toast({
                 variant: "destructive",
-                title: "Something went wrong!"
+                title: "❌ Something went wrong!"
             })
         }
     }
@@ -72,7 +72,7 @@ export default function JobCoverImage({initialData, jobId}: Props) {
         } catch (e) {
             toast({
                 variant: "destructive",
-                title: "Something went wrong!",
+                title: "❌ Something went wrong!",
                 description: "Cannot delete the uploaded image"
             })
         }
@@ -90,7 +90,7 @@ export default function JobCoverImage({initialData, jobId}: Props) {
                             <div className="flex items-center justify-between mb-2">
                                 <FormLabel>Job Cover image</FormLabel>
                                 {!isEditing &&
-                                    <Button type="button" size="icon" variant="ghost" onClick={toggleEditing}>
+                                    <Button type="button" size="icon" variant="secondary" onClick={toggleEditing}>
                                         <Pencil className="size-3.5"/>
                                     </Button>
                                 }
@@ -111,7 +111,7 @@ export default function JobCoverImage({initialData, jobId}: Props) {
                                                 onUploadError={(error: Error) => {
                                                     toast({
                                                         variant: "destructive",
-                                                        title: "Something went wrong!",
+                                                        title: "❌ Something went wrong!",
                                                         description: "Image cannot be uploaded"
                                                     })
                                                 }}

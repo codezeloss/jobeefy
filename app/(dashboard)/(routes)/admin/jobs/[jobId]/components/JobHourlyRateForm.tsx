@@ -8,23 +8,23 @@ import {useState} from "react";
 import {Button} from "@/components/ui/button"
 import {Form, FormControl, FormField, FormItem, FormLabel, FormMessage,} from "@/components/ui/form"
 import {Input} from "@/components/ui/input"
-import {Pencil} from "lucide-react";
+import {DollarSignIcon, Pencil} from "lucide-react";
 import {useToast} from "@/components/ui/use-toast";
 import axios from "axios";
 
 interface Props {
     initialData: {
-        title: string
+        hourlyRate: string | null
     },
     jobId: string
 }
 
 const formSchema = z.object({
-    title: z.string().min(2, {message: "Title is required"}).max(50),
+    hourlyRate: z.string(),
 })
 
 
-export default function TitleForm({initialData, jobId}: Props) {
+export default function JobHourlyRateForm({initialData, jobId}: Props) {
     const router = useRouter()
     const {toast} = useToast()
     const [isEditing, setIsEditing] = useState(false)
@@ -32,7 +32,7 @@ export default function TitleForm({initialData, jobId}: Props) {
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
-            title: initialData.title
+            hourlyRate: initialData.hourlyRate || ""
         },
     })
 
@@ -43,14 +43,14 @@ export default function TitleForm({initialData, jobId}: Props) {
             const response = await axios.patch(`/api/jobs/${jobId}`, values)
             toast({
                 variant: "default",
-                title: "Job updated successfully"
+                title: "✅ Job updated successfully"
             })
             toggleEditing()
             router.refresh()
         } catch (e) {
             toast({
                 variant: "destructive",
-                title: "Something went wrong!"
+                title: "❌ Something went wrong!"
             })
         }
     }
@@ -65,19 +65,29 @@ export default function TitleForm({initialData, jobId}: Props) {
             >
                 <FormField
                     control={form.control}
-                    name="title"
+                    name="hourlyRate"
                     render={({field}) => (
                         <FormItem>
                             <div className="flex items-center justify-between mb-2">
-                                <FormLabel>Job Title</FormLabel>
+                                <FormLabel>Job Hourly Rate</FormLabel>
                                 {!isEditing &&
-                                    <Button type="button" size="icon" variant="ghost" onClick={toggleEditing}>
+                                    <Button type="button" size="icon" variant="secondary" onClick={toggleEditing}>
                                         <Pencil className="size-3.5"/>
                                     </Button>
                                 }
                             </div>
                             <FormControl>
-                                <Input disabled={!isEditing || isSubmitting} placeholder="Content creator" {...field} />
+                                <div className="flex items-center gap-x-2">
+                                    <DollarSignIcon className="size-4"/>
+                                    <Input
+                                        className="w-[90px]"
+                                        disabled={!isEditing || isSubmitting}
+                                        type="number"
+                                        placeholder="Enter an Hourly Rate"
+                                        {...field}
+                                    />
+                                    <p className="w-[5%] text-sm">/hr</p>
+                                </div>
                             </FormControl>
                             <FormMessage/>
                         </FormItem>

@@ -6,10 +6,15 @@ import JobPublishActions from "@/app/(dashboard)/(routes)/admin/jobs/[jobId]/com
 import AlertBanner from "@/components/AlertBanner";
 import JobDetailTile from "@/app/(dashboard)/(routes)/admin/jobs/[jobId]/components/JobDetailTile";
 import React from "react";
-import TitleForm from "@/app/(dashboard)/(routes)/admin/jobs/[jobId]/components/TitleForm";
+import JobTitleForm from "@/app/(dashboard)/(routes)/admin/jobs/[jobId]/components/JobTitleForm";
 import JobCategoryForm from "@/app/(dashboard)/(routes)/admin/jobs/[jobId]/components/JobCategoryForm";
-import JobCoverImage from "@/app/(dashboard)/(routes)/admin/jobs/[jobId]/components/JobCoverImage";
-import JobShortDescription from "@/app/(dashboard)/(routes)/admin/jobs/[jobId]/components/JobShortDescription";
+import JobCoverImageForm from "@/app/(dashboard)/(routes)/admin/jobs/[jobId]/components/JobCoverImageForm";
+import JobShortDescriptionForm from "@/app/(dashboard)/(routes)/admin/jobs/[jobId]/components/JobShortDescriptionForm";
+import JobShiftTimingModeForm from "@/app/(dashboard)/(routes)/admin/jobs/[jobId]/components/JobShiftTimingModeForm";
+import JobHourlyRateForm from "@/app/(dashboard)/(routes)/admin/jobs/[jobId]/components/JobHourlyRateForm";
+import JobModeForm from "@/app/(dashboard)/(routes)/admin/jobs/[jobId]/components/JobModeForm";
+import JobWorkExperienceForm from "@/app/(dashboard)/(routes)/admin/jobs/[jobId]/components/JobWorkExperienceForm";
+import JobDescriptionForm from "@/app/(dashboard)/(routes)/admin/jobs/[jobId]/components/JobDescriptionForm";
 
 export default async function JobDetailsPage({params}: { params: { jobId: string } }) {
     // ** Verify the mongoDB ID
@@ -79,7 +84,7 @@ export default async function JobDetailsPage({params}: { params: { jobId: string
                         title="Customize your Job"
                         icon={LayoutDashboard}
                     />
-                    <TitleForm initialData={job} jobId={job.id}/>
+                    <JobTitleForm initialData={job} jobId={job.id}/>
                     <JobCategoryForm
                         options={categories.map(category => ({
                             label: category.name,
@@ -88,8 +93,13 @@ export default async function JobDetailsPage({params}: { params: { jobId: string
                         initialData={job}
                         jobId={job.id}
                     />
-                    <JobCoverImage initialData={job} jobId={job.id}/>
-                    <JobShortDescription initialData={job} jobId={job.id}/>
+                    <JobCoverImageForm initialData={job} jobId={job.id}/>
+                    <JobShortDescriptionForm initialData={job} jobId={job.id}/>
+                    <JobShiftTimingModeForm initialData={job} jobId={job.id}/>
+                    <JobHourlyRateForm initialData={job} jobId={job.id}/>
+                    <JobModeForm initialData={job} jobId={job.id}/>
+                    <JobWorkExperienceForm initialData={job} jobId={job.id}/>
+
                 </div>
 
                 <div className="">
@@ -99,7 +109,13 @@ export default async function JobDetailsPage({params}: { params: { jobId: string
                     />
                     <div className=""></div>
                 </div>
+
+                <div className="col-span-2">
+                    <JobDescriptionForm initialData={job} jobId={job.id}/>
+                </div>
             </div>
+
+
         </div>
     );
 }

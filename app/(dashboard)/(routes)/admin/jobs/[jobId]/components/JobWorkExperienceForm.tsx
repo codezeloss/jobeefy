@@ -1,5 +1,6 @@
 "use client"
 
+import {Job} from "@prisma/client";
 import {z} from "zod";
 import {useRouter} from "next/navigation";
 import {useToast} from "@/components/ui/use-toast";
@@ -7,26 +8,40 @@ import {useState} from "react";
 import {useForm} from "react-hook-form";
 import {zodResolver} from "@hookform/resolvers/zod";
 import axios from "axios";
+import {Form, FormControl, FormField, FormItem, FormLabel, FormMessage} from "@/components/ui/form";
+import {Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue,} from "@/components/ui/select"
 import {Button} from "@/components/ui/button";
-import {Form, FormField, FormItem, FormLabel, FormMessage,} from "@/components/ui/form"
-import {Job} from "@prisma/client";
 import {Pencil} from "lucide-react";
-import ComboBox from "@/components/ComboBox";
 
 interface Props {
     initialData: Job,
-    jobId: string,
-    options: { label: string, value: string }[]
+    jobId: string
 }
 
 const formSchema = z.object({
-    categoryId: z.string({
-        required_error: "Please select a category!",
-    }).min(1),
+    yearsOfExperience: z.string(),
 })
 
+let options = [
+    {
+        value: "0",
+        label: "Fresher",
+    },
+    {
+        value: "2",
+        label: "0-2 years",
+    },
+    {
+        value: "3",
+        label: "2-4 years",
+    },
+    {
+        value: "5",
+        label: "+5 years",
+    }
+]
 
-export default function JobCategoryForm({initialData, jobId, options}: Props) {
+export default function JobWorkExperienceForm({initialData, jobId}: Props) {
     const router = useRouter()
     const {toast} = useToast()
     const [isEditing, setIsEditing] = useState(false)
@@ -34,7 +49,7 @@ export default function JobCategoryForm({initialData, jobId, options}: Props) {
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
-            categoryId: initialData?.categoryId || ""
+            yearsOfExperience: initialData?.yearsOfExperience || ""
         },
     })
 
@@ -65,24 +80,39 @@ export default function JobCategoryForm({initialData, jobId, options}: Props) {
                   className="space-y-4 bg-slate-100/20 rounded p-4 border border-slate-200">
                 <FormField
                     control={form.control}
-                    name="categoryId"
+                    name="yearsOfExperience"
                     render={({field}) => (
                         <FormItem className="flex flex-col">
                             <div className="flex items-center justify-between mb-2">
-                                <FormLabel>Job Category</FormLabel>
+                                <FormLabel>Job Work Experience</FormLabel>
                                 {!isEditing &&
                                     <Button type="button" size="icon" variant="secondary" onClick={toggleEditing}>
                                         <Pencil className="size-3.5"/>
                                     </Button>
                                 }
                             </div>
-                            <ComboBox
-                                heading="category"
-                                form={form}
-                                options={options}
-                                disabled={!isEditing || isSubmitting}
-                                value={field.value}
-                            />
+
+
+                            <Select onValueChange={field.onChange} defaultValue={field.value}>
+                                <FormControl>
+                                    <SelectTrigger className="w-full" disabled={isSubmitting || !isEditing}>
+                                        <SelectValue placeholder="Select an option..."/>
+                                    </SelectTrigger>
+                                </FormControl>
+
+                                <SelectContent>
+                                    <SelectGroup>
+                                        {options.map((option, index) => (
+                                            <SelectItem
+                                                key={index}
+                                                value={option.value}
+                                            >
+                                                {option.label}
+                                            </SelectItem>
+                                        ))}
+                                    </SelectGroup>
+                                </SelectContent>
+                            </Select>
                             <FormMessage/>
                         </FormItem>
                     )}
@@ -98,4 +128,3 @@ export default function JobCategoryForm({initialData, jobId, options}: Props) {
         </Form>
     );
 }
-

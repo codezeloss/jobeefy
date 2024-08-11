@@ -39,7 +39,7 @@ export default function JobCreatePage() {
             console.log((error as Error)?.message)
             toast({
                 variant: "destructive",
-                title: "Uh oh! Something went wrong.",
+                title: "❌ Uh oh! Something went wrong.",
                 description: "Your Job cannot be created."
             })
         }

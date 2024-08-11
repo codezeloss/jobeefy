@@ -13,6 +13,7 @@ import {Job} from "@prisma/client";
 import {Lightbulb, Loader2, Pencil} from "lucide-react";
 import {Input} from "@/components/ui/input";
 import {Textarea} from "@/components/ui/textarea";
+import getGenerativeAIResponse from "@/utils/aistudio";
 
 interface Props {
     initialData: Job,
@@ -23,7 +24,7 @@ const formSchema = z.object({
     short_description: z.string(),
 })
 
-export default function JobShortDescription({initialData, jobId}: Props) {
+export default function JobShortDescriptionForm({initialData, jobId}: Props) {
     const router = useRouter()
     const {toast} = useToast()
     const [isEditing, setIsEditing] = useState(false)
@@ -44,14 +45,14 @@ export default function JobShortDescription({initialData, jobId}: Props) {
             const response = await axios.patch(`/api/jobs/${jobId}`, values)
             toast({
                 variant: "default",
-                title: "Job updated successfully"
+                title: "✅ Job updated successfully"
             })
             toggleEditing()
             router.refresh()
         } catch (e) {
             toast({
                 variant: "destructive",
-                title: "Something went wrong!"
+                title: "❌ Something went wrong!"
             })
         }
     }
@@ -59,6 +60,20 @@ export default function JobShortDescription({initialData, jobId}: Props) {
     const toggleEditing = () => setIsEditing((current) => !current)
 
     const handlePromptGeneration = async () => {
+        try {
+            setIsPrompting(true)
+            const customPrompt = `Could you craft a concise job description for a ${prompt} position in fewer than 400 characters?`
+            await getGenerativeAIResponse(customPrompt).then((data) => {
+                form.setValue("short_description", data)
+                setIsPrompting(false)
+            })
+        } catch (e) {
+            console.log(e)
+            toast({
+                variant: "destructive",
+                title: "❌ Something went wrong!"
+            })
+        }
     }
 
     return (
@@ -72,10 +87,11 @@ export default function JobShortDescription({initialData, jobId}: Props) {
                         render={({field}) => (
                             <FormItem className="flex flex-col">
                                 <div>
-                                    <div className="flex items-center justify-between mb-3">
-                                        <FormLabel>Job Short Description</FormLabel>
+                                    <div className="flex items-center justify-between mb-2">
+                                        <FormLabel>Short Description</FormLabel>
                                         {!isEditing &&
-                                            <Button type="button" size="icon" variant="ghost" onClick={toggleEditing}>
+                                            <Button type="button" size="icon" variant="secondary"
+                                                    onClick={toggleEditing}>
                                                 <Pencil className="size-3.5"/>
                                             </Button>
                                         }
@@ -90,15 +106,16 @@ export default function JobShortDescription({initialData, jobId}: Props) {
                                                     onChange={(e) => setPrompt(e.target.value)}
                                                 />
                                                 {isPrompting ?
-                                                    <Button type="button">
+                                                    <Button type="button" disabled={isSubmitting}>
                                                         <Loader2 className="size-4 animate-spin"/>
                                                     </Button> :
-                                                    <Button type="button" onClick={handlePromptGeneration}>
+                                                    <Button type="button" disabled={isSubmitting}
+                                                            onClick={handlePromptGeneration}>
                                                         <Lightbulb className="size-4"/>
                                                     </Button>
                                                 }
                                             </div>
-                                            <p className="text-xs text-right font-medium text-neutral-400 mt-1.5">
+                                            <p className="text-xs text-right text-neutral-400 mt-1.5">
                                                 *NOTE: Profession names alone are enough to generate the tags
                                             </p>
                                         </div>
@@ -106,14 +123,19 @@ export default function JobShortDescription({initialData, jobId}: Props) {
                                 </div>
 
                                 <FormControl>
-                                    {isEditing &&
+                                    {isEditing ?
                                         <div>
                                             <Textarea
+                                                rows={7}
                                                 disabled={isSubmitting}
                                                 placeholder="Short description about the job"
                                                 {...field}
                                             />
-                                        </div>}
+                                        </div> :
+                                        <p className="text-sm text-neutral-500">
+                                            {form.getValues().short_description}
+                                        </p>
+                                    }
                                 </FormControl>
                                 <FormMessage/>
                             </FormItem>
