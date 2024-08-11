@@ -59,8 +59,10 @@ export default function TitleForm({initialData, jobId}: Props) {
 
     return (
         <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)}
-                  className="space-y-4 bg-slate-100/20 rounded p-4 border border-slate-200">
+            <form
+                onSubmit={form.handleSubmit(onSubmit)}
+                className="space-y-4 bg-slate-100/20 rounded p-4 border border-slate-200"
+            >
                 <FormField
                     control={form.control}
                     name="title"
@@ -69,8 +71,8 @@ export default function TitleForm({initialData, jobId}: Props) {
                             <div className="flex items-center justify-between mb-2">
                                 <FormLabel>Job Title</FormLabel>
                                 {!isEditing &&
-                                    <Button type="button" size="sm" variant="ghost" onClick={toggleEditing}>
-                                        <Pencil className="size-4"/>
+                                    <Button type="button" size="icon" variant="ghost" onClick={toggleEditing}>
+                                        <Pencil className="size-3.5"/>
                                     </Button>
                                 }
                             </div>

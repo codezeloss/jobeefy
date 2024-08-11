@@ -26,7 +26,7 @@ const formSchema = z.object({
 })
 
 
-export default function CategoryForm({initialData, jobId, options}: Props) {
+export default function JobCategoryForm({initialData, jobId, options}: Props) {
     const router = useRouter()
     const {toast} = useToast()
     const [isEditing, setIsEditing] = useState(false)
@@ -71,8 +71,8 @@ export default function CategoryForm({initialData, jobId, options}: Props) {
                             <div className="flex items-center justify-between mb-2">
                                 <FormLabel>Job Category</FormLabel>
                                 {!isEditing &&
-                                    <Button type="button" size="sm" variant="ghost" onClick={toggleEditing}>
-                                        <Pencil className="size-4"/>
+                                    <Button type="button" size="icon" variant="ghost" onClick={toggleEditing}>
+                                        <Pencil className="size-3.5"/>
                                     </Button>
                                 }
                             </div>

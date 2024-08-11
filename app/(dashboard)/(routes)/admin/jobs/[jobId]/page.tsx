@@ -7,8 +7,9 @@ import AlertBanner from "@/components/AlertBanner";
 import JobDetailTile from "@/app/(dashboard)/(routes)/admin/jobs/[jobId]/components/JobDetailTile";
 import React from "react";
 import TitleForm from "@/app/(dashboard)/(routes)/admin/jobs/[jobId]/components/TitleForm";
-import CategoryForm from "@/app/(dashboard)/(routes)/admin/jobs/[jobId]/components/CategoryForm";
+import JobCategoryForm from "@/app/(dashboard)/(routes)/admin/jobs/[jobId]/components/JobCategoryForm";
 import JobCoverImage from "@/app/(dashboard)/(routes)/admin/jobs/[jobId]/components/JobCoverImage";
+import JobShortDescription from "@/app/(dashboard)/(routes)/admin/jobs/[jobId]/components/JobShortDescription";
 
 export default async function JobDetailsPage({params}: { params: { jobId: string } }) {
     // ** Verify the mongoDB ID
@@ -79,7 +80,7 @@ export default async function JobDetailsPage({params}: { params: { jobId: string
                         icon={LayoutDashboard}
                     />
                     <TitleForm initialData={job} jobId={job.id}/>
-                    <CategoryForm
+                    <JobCategoryForm
                         options={categories.map(category => ({
                             label: category.name,
                             value: category.id
@@ -88,6 +89,7 @@ export default async function JobDetailsPage({params}: { params: { jobId: string
                         jobId={job.id}
                     />
                     <JobCoverImage initialData={job} jobId={job.id}/>
+                    <JobShortDescription initialData={job} jobId={job.id}/>
                 </div>
 
                 <div className="">
