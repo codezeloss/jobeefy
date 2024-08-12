@@ -10,8 +10,11 @@ import axios from "axios";
 import {Button} from "@/components/ui/button";
 import {Form, FormControl, FormField, FormItem, FormLabel, FormMessage,} from "@/components/ui/form"
 import {Job} from "@prisma/client";
-import {Lightbulb, Loader2, Pencil} from "lucide-react";
+import {Copy, Lightbulb, Loader2, Pencil} from "lucide-react";
 import {Input} from "@/components/ui/input";
+import ReactQuillEditor from "@/components/ReactQuillEditor";
+import getGenerativeAIResponse from "@/utils/aistudio";
+import ReactQuillPreview from "@/components/ReactQuillPreview";
 
 interface Props {
     initialData: Job,
@@ -28,6 +31,7 @@ export default function JobDescriptionForm({initialData, jobId}: Props) {
     const [isEditing, setIsEditing] = useState(false)
     const [roleName, setRoleName] = useState("")
     const [skills, setSkills] = useState("")
+    const [AIValue, setAIValue] = useState("")
     const [isPrompting, setIsPrompting] = useState(false)
 
     const form = useForm<z.infer<typeof formSchema>>({
@@ -61,6 +65,17 @@ export default function JobDescriptionForm({initialData, jobId}: Props) {
     const handlePromptGeneration = async () => {
         try {
             setIsPrompting(true)
+            const customPrompt = `Could you please draft a job requirements document for the position pf ${roleName}? 
+            The job description should include roles & responsibilities, key features, and details about the role. 
+            The required skills should include proficiency in ${skills}. 
+            Additionally, you can list any optional skill related to job. Thanks!`
+            await getGenerativeAIResponse(customPrompt).then((data) => {
+                data = data.replace(/^'|'$/g, "")
+                let cleanedData = data.replace(/[\*\#]/g, "")
+                // form.setValue("description", cleanedData)
+                setAIValue(cleanedData)
+                setIsPrompting(false)
+            })
         } catch (e) {
             console.log(e)
             toast({
@@ -68,6 +83,14 @@ export default function JobDescriptionForm({initialData, jobId}: Props) {
                 title: "❌ Something went wrong!"
             })
         }
+    }
+
+    const onCopyAIValue = () => {
+        navigator.clipboard.writeText(AIValue)
+        toast({
+            variant: "default",
+            title: "✅ Text Copied to Clipboard"
+        })
     }
 
     return (
@@ -126,14 +149,31 @@ export default function JobDescriptionForm({initialData, jobId}: Props) {
                                     }
                                 </div>
 
+                                {AIValue && isEditing &&
+                                    <div
+                                        className="relative w-full h-96 max-h-96 text-sm rounded bg-white overflow-y-scroll p-3 relative mt-4 text-muted-foreground">
+                                        <p>{AIValue}</p>
+                                        <Button type="button" variant="outline" size="icon"
+                                                className="absolute top-3 right-3 z-10"
+                                                onClick={onCopyAIValue}
+                                        >
+                                            <Copy className="size-4"/>
+                                        </Button>
+                                    </div>
+                                }
+
                                 <FormControl>
                                     {isEditing ?
                                         <div>
-
+                                            <ReactQuillEditor {...field}/>
                                         </div> :
-                                        <p className="text-sm text-neutral-500">
-                                            {form.getValues().description}
-                                        </p>
+                                        form.getValues().description !== "" ?
+                                            <div>
+                                                <ReactQuillPreview {...field}/>
+                                            </div> :
+                                            <p className="italic font-medium text-xs text-neutral-400">
+                                                No description added
+                                            </p>
                                     }
                                 </FormControl>
                                 <FormMessage/>
@@ -141,16 +181,11 @@ export default function JobDescriptionForm({initialData, jobId}: Props) {
                         )}
                     />
 
-                    {form.getValues().description === "" && !isEditing &&
-                        <p className="italic font-medium text-xs text-neutral-400">
-                            No description added
-                        </p>
-                    }
 
                     {isEditing &&
                         <div className="flex items-center gap-x-2 mt-4">
-                            <Button type="submit" disabled={!isValid || isSubmitting}>Save</Button>
-                            <Button type="button" variant="outline" onClick={toggleEditing}>Cancel</Button>
+                            <Button type="submit" size="sm" disabled={!isValid || isSubmitting}>Save</Button>
+                            <Button type="button" size="sm" variant="outline" onClick={toggleEditing}>Cancel</Button>
                         </div>
                     }
                 </form>

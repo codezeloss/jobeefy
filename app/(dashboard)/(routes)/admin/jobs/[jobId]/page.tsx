@@ -1,7 +1,7 @@
 import {redirect} from "next/navigation";
 import {auth} from "@clerk/nextjs/server";
 import prismaDB from "@/lib/prismaDB";
-import {ArrowLeft, LayoutDashboard, ListChecks} from "lucide-react";
+import {ArrowLeft, Building2Icon, LayoutDashboard, ListChecks, LucidePaperclip} from "lucide-react";
 import JobPublishActions from "@/app/(dashboard)/(routes)/admin/jobs/[jobId]/components/JobPublishActions";
 import AlertBanner from "@/components/AlertBanner";
 import JobDetailTile from "@/app/(dashboard)/(routes)/admin/jobs/[jobId]/components/JobDetailTile";
@@ -15,6 +15,9 @@ import JobHourlyRateForm from "@/app/(dashboard)/(routes)/admin/jobs/[jobId]/com
 import JobModeForm from "@/app/(dashboard)/(routes)/admin/jobs/[jobId]/components/JobModeForm";
 import JobWorkExperienceForm from "@/app/(dashboard)/(routes)/admin/jobs/[jobId]/components/JobWorkExperienceForm";
 import JobDescriptionForm from "@/app/(dashboard)/(routes)/admin/jobs/[jobId]/components/JobDescriptionForm";
+import JobTagsForm from "@/app/(dashboard)/(routes)/admin/jobs/[jobId]/components/JobTagsForm";
+import Link from "next/link";
+
 
 export default async function JobDetailsPage({params}: { params: { jobId: string } }) {
     // ** Verify the mongoDB ID
@@ -52,10 +55,12 @@ export default async function JobDetailsPage({params}: { params: { jobId: string
 
     return (
         <div>
-            <div className="flex items-center gap-x-4 text-neutral-500 text-sm mb-5">
-                <ArrowLeft className="size-4"/>
-                <p className="font-semibold">Back</p>
-            </div>
+            <Link href="/admin/jobs">
+                <div className="flex items-center gap-x-4 text-neutral-500 text-sm mb-5 cursor-pointer">
+                    <ArrowLeft className="size-4"/>
+                    <p className="font-semibold">Back</p>
+                </div>
+            </Link>
 
             <div className="w-full flex items-center justify-between mb-4">
                 <div className="flex flex-col gap-y-2">
@@ -99,15 +104,24 @@ export default async function JobDetailsPage({params}: { params: { jobId: string
                     <JobHourlyRateForm initialData={job} jobId={job.id}/>
                     <JobModeForm initialData={job} jobId={job.id}/>
                     <JobWorkExperienceForm initialData={job} jobId={job.id}/>
-
                 </div>
 
-                <div className="">
+                <div className="space-y-6">
                     <JobDetailTile
                         title="Job Requirements"
                         icon={ListChecks}
                     />
-                    <div className=""></div>
+                    <JobTagsForm initialData={job} jobId={job.id}/>
+                    <JobDetailTile
+                        title="Company Details"
+                        icon={Building2Icon}
+                    />
+                    <JobTagsForm initialData={job} jobId={job.id}/>
+                    <JobDetailTile
+                        title="Resources & Attachments"
+                        icon={LucidePaperclip}
+                    />
+                    <JobTagsForm initialData={job} jobId={job.id}/>
                 </div>
 
                 <div className="col-span-2">

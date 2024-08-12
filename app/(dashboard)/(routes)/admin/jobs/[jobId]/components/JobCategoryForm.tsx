@@ -8,7 +8,7 @@ import {useForm} from "react-hook-form";
 import {zodResolver} from "@hookform/resolvers/zod";
 import axios from "axios";
 import {Button} from "@/components/ui/button";
-import {Form, FormField, FormItem, FormLabel, FormMessage,} from "@/components/ui/form"
+import {Form, FormControl, FormField, FormItem, FormLabel, FormMessage,} from "@/components/ui/form"
 import {Job} from "@prisma/client";
 import {Pencil} from "lucide-react";
 import ComboBox from "@/components/ComboBox";
@@ -76,13 +76,16 @@ export default function JobCategoryForm({initialData, jobId, options}: Props) {
                                     </Button>
                                 }
                             </div>
-                            <ComboBox
-                                heading="category"
-                                form={form}
-                                options={options}
-                                disabled={!isEditing || isSubmitting}
-                                value={field.value}
-                            />
+
+                            <FormControl>
+                                <ComboBox
+                                    heading="category"
+                                    form={form}
+                                    options={options}
+                                    disabled={!isEditing || isSubmitting}
+                                    value={field.value}
+                                />
+                            </FormControl>
                             <FormMessage/>
                         </FormItem>
                     )}
@@ -90,8 +93,8 @@ export default function JobCategoryForm({initialData, jobId, options}: Props) {
 
                 {isEditing &&
                     <div className="flex items-center gap-x-2">
-                        <Button type="submit" disabled={!isValid || isSubmitting}>Save</Button>
-                        <Button type="button" variant="outline" onClick={toggleEditing}>Cancel</Button>
+                        <Button type="submit" size="sm" disabled={isSubmitting}>Save</Button>
+                        <Button type="button" size="sm" variant="outline" onClick={toggleEditing}>Cancel</Button>
                     </div>
                 }
             </form>

@@ -150,8 +150,8 @@ export default function JobShortDescriptionForm({initialData, jobId}: Props) {
 
                     {isEditing &&
                         <div className="flex items-center gap-x-2 mt-4">
-                            <Button type="submit" disabled={!isValid || isSubmitting}>Save</Button>
-                            <Button type="button" variant="outline" onClick={toggleEditing}>Cancel</Button>
+                            <Button type="submit" size="sm" disabled={!isValid || isSubmitting}>Save</Button>
+                            <Button type="button" size="sm" variant="outline" onClick={toggleEditing}>Cancel</Button>
                         </div>
                     }
                 </form>

@@ -9,7 +9,7 @@ interface Props {
     value: string
 }
 
-export default function ReactQuillEditor({value, onChange}: Props) {
+export default function ReactQuillEditor({onChange, value}: Props) {
     const ReactQuill = useMemo(() =>
             dynamic(() => import ("react-quill"), {ssr: false}),
         []);
