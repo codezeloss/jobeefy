@@ -12,17 +12,17 @@ import {useToast} from "@/components/ui/use-toast";
 import {useRouter} from "next/navigation";
 
 const formSchema = z.object({
-    title: z.string().min(2, {message: "Job Title cannot be empty!"}).max(50),
+    name: z.string().min(2, {message: "Company Name cannot be empty!"}).max(50),
 })
 
-export default function JobCreatePage() {
+export default function CreateCompanyPage() {
     const {toast} = useToast()
     const router = useRouter()
 
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
-            title: "",
+            name: "",
         },
     })
 
@@ -30,17 +30,17 @@ export default function JobCreatePage() {
 
     async function onSubmit(values: z.infer<typeof formSchema>) {
         try {
-            const response = await axios.post("/api/jobs", values)
-            router.push(`/admin/jobs/${response.data.id}`)
+            const response = await axios.post("/api/companies", values)
+            router.push(`/admin/companies/${response.data.id}`)
             toast({
-                description: "✅ Your Job has been created",
+                description: "✅ Company has been created",
             })
         } catch (error) {
             console.log((error as Error)?.message)
             toast({
                 variant: "destructive",
                 title: "❌ Uh oh! Something went wrong.",
-                description: "Your Job cannot be created."
+                description: "Your Company cannot be created."
             })
         }
     }
@@ -49,11 +49,9 @@ export default function JobCreatePage() {
         <div className="max-w-lg mx-auto w-full h-[70vh] flex items-center justify-center p-6">
             <div>
                 <div className="w-full h-full flex flex-col mb-4">
-                    <h1 className="font-semibold text-lg md:text-2xl mb-1">Name your Job</h1>
-                    <p className="text-xs md:text-sm font-normal text-slate-500">What would like to name your job? Don't
-                        worry,
-                        you can change it
-                        later!
+                    <h1 className="font-semibold text-lg md:text-2xl mb-1">Company Name</h1>
+                    <p className="text-xs md:text-sm font-normal text-slate-500">
+                        What would like to name your company? Don't worry, you can change it later!
                     </p>
                 </div>
 
@@ -61,27 +59,27 @@ export default function JobCreatePage() {
                     <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
                         <FormField
                             control={form.control}
-                            name="title"
+                            name="name"
                             render={({field}) => (
                                 <FormItem>
-                                    <FormLabel>Job Title</FormLabel>
+                                    <FormLabel>Name</FormLabel>
                                     <FormControl>
                                         <Input
                                             disabled={isSubmitting}
-                                            placeholder='e.g. "FullStack Web Developer"... '
+                                            placeholder='e.g. "Microsoft"... '
                                             className="w-full"
                                             {...field}
                                         />
                                     </FormControl>
                                     <FormDescription>
-                                        Role of this Job
+                                        The Name of Company
                                     </FormDescription>
                                     <FormMessage/>
                                 </FormItem>
                             )}
                         />
                         <div className="flex items-center gap-x-2">
-                            <Link href="/admin/jobs">
+                            <Link href="/admin/companies">
                                 <Button type="button" variant="outline" disabled={isSubmitting}>Cancel</Button>
                             </Link>
                             <Button type="submit" disabled={isSubmitting || !isValid}>Submit</Button>
