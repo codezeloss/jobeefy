@@ -34,12 +34,20 @@ export const companiesTableColumns: ColumnDef<JobsColumns>[] = [
                 <div>
                     {logo ?
                         <Image
-                            className="text-xs text-center"
-                            src={logo} alt="Company logo"
-                            width={100}
-                            height={100}/>
+                            className="text-xs text-center p-2"
+                            src={logo}
+                            alt="Company's logo"
+                            width={70}
+                            height={70}
+                        />
                         :
-                        <p className="">--</p>
+                        <Image
+                            className="text-xs text-center p-2"
+                            src="/logo.svg"
+                            alt="Company's logo"
+                            width={70}
+                            height={70}
+                        />
                     }
                 </div>
             )
