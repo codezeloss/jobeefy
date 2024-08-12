@@ -48,6 +48,7 @@ export default async function JobsPage() {
             </div>
 
             <DataTable
+                searchKey="title"
                 columns={jobsTableColumns}
                 data={formattedJobsData}
             />

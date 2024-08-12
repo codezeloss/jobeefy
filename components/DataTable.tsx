@@ -19,10 +19,11 @@ import {useState} from "react";
 
 interface DataTableProps<TData, TValue> {
     columns: ColumnDef<TData, TValue>[]
-    data: TData[]
+    data: TData[],
+    searchKey: string
 }
 
-export function DataTable<TData, TValue>({columns, data}: DataTableProps<TData, TValue>) {
+export function DataTable<TData, TValue>({columns, data, searchKey}: DataTableProps<TData, TValue>) {
     const [sorting, setSorting] = useState<SortingState>([])
     const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
 
@@ -45,10 +46,10 @@ export function DataTable<TData, TValue>({columns, data}: DataTableProps<TData, 
         <div>
             <div className="flex items-center py-4">
                 <Input
-                    placeholder="Search..."
-                    value={(table.getColumn("email")?.getFilterValue() as string) ?? ""}
+                    placeholder={`Search a ${searchKey}...`}
+                    value={(table.getColumn(searchKey)?.getFilterValue() as string) ?? ""}
                     onChange={(event) =>
-                        table.getColumn("title")?.setFilterValue(event.target.value)
+                        table.getColumn(searchKey)?.setFilterValue(event.target.value)
                     }
                     className="max-w-sm"
                 />
