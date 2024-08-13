@@ -1,7 +1,7 @@
 import Link from "next/link";
 import {Button} from "@/components/ui/button";
 import {Plus} from "lucide-react";
-import {jobsTableColumns} from "@/app/(dashboard)/(routes)/admin/jobs/components/JobsTableColumns";
+import {JobsColumns, jobsTableColumns} from "@/app/(dashboard)/(routes)/admin/jobs/components/JobsTableColumns";
 import {DataTable} from "@/components/DataTable";
 import {auth} from "@clerk/nextjs/server";
 import {redirect} from "next/navigation";
@@ -25,7 +25,7 @@ export default async function JobsPage() {
         }
     })
 
-    const formattedJobsData = jobs.map(job => ({
+    const formattedJobsData: JobsColumns[] = jobs.map(job => ({
         id: job.id,
         title: job.title ?? "--",
         company: "--",

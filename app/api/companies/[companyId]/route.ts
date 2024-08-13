@@ -24,7 +24,7 @@ export async function PATCH(req: Request, {params}: { params: { companyId: strin
 
         return NextResponse.json(job)
     } catch (e) {
-        console.log("[COMPANIES_PATCH]", e);
+        console.log("[COMPANY_PATCH]", e);
         return new NextResponse("Internal error, cannot update the Company!", {status: 500});
     }
 }

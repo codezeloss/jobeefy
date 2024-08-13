@@ -49,7 +49,7 @@ export default function CreateCompanyPage() {
         <div className="max-w-lg mx-auto w-full h-[70vh] flex items-center justify-center p-6">
             <div>
                 <div className="w-full h-full flex flex-col mb-4">
-                    <h1 className="font-semibold text-lg md:text-2xl mb-1">Company Name</h1>
+                    <h1 className="font-semibold text-lg md:text-2xl mb-1">Name your Company</h1>
                     <p className="text-xs md:text-sm font-normal text-slate-500">
                         What would like to name your company? Don't worry, you can change it later!
                     </p>
@@ -62,7 +62,7 @@ export default function CreateCompanyPage() {
                             name="name"
                             render={({field}) => (
                                 <FormItem>
-                                    <FormLabel>Name</FormLabel>
+                                    <FormLabel>Company Name</FormLabel>
                                     <FormControl>
                                         <Input
                                             disabled={isSubmitting}
@@ -72,7 +72,7 @@ export default function CreateCompanyPage() {
                                         />
                                     </FormControl>
                                     <FormDescription>
-                                        The Name of Company
+                                        The Name of this Company
                                     </FormDescription>
                                     <FormMessage/>
                                 </FormItem>

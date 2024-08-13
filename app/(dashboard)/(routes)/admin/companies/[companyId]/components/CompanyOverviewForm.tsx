@@ -9,7 +9,7 @@ import {zodResolver} from "@hookform/resolvers/zod";
 import axios from "axios";
 import {Button} from "@/components/ui/button";
 import {Form, FormControl, FormField, FormItem, FormLabel, FormMessage,} from "@/components/ui/form"
-import {Job} from "@prisma/client";
+import {Company} from "@prisma/client";
 import {Copy, Lightbulb, Loader2, Pencil} from "lucide-react";
 import {Input} from "@/components/ui/input";
 import ReactQuillEditor from "@/components/ReactQuillEditor";
@@ -17,27 +17,26 @@ import getGenerativeAIResponse from "@/utils/aistudio";
 import ReactQuillPreview from "@/components/ReactQuillPreview";
 
 interface Props {
-    initialData: Job,
-    jobId: string
+    initialData: Company,
+    companyId: string
 }
 
 const formSchema = z.object({
-    description: z.string(),
+    overview: z.string(),
 })
 
-export default function JobDescriptionForm({initialData, jobId}: Props) {
+export default function CompanyOverviewForm({initialData, companyId}: Props) {
     const router = useRouter()
     const {toast} = useToast()
     const [isEditing, setIsEditing] = useState(false)
-    const [roleName, setRoleName] = useState("")
-    const [skills, setSkills] = useState("")
+    const [prompt, setPrompt] = useState("")
     const [AIValue, setAIValue] = useState("")
     const [isPrompting, setIsPrompting] = useState(false)
 
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
-            description: initialData?.description || ""
+            overview: initialData?.overview || ""
         },
     })
 
@@ -45,10 +44,10 @@ export default function JobDescriptionForm({initialData, jobId}: Props) {
 
     async function onSubmit(values: z.infer<typeof formSchema>) {
         try {
-            const response = await axios.patch(`/api/jobs/${jobId}`, values)
+            const response = await axios.patch(`/api/companies/${companyId}`, values)
             toast({
                 variant: "default",
-                title: "✅ Job updated successfully"
+                title: "✅ Company updated successfully"
             })
             toggleEditing()
             router.refresh()
@@ -65,14 +64,11 @@ export default function JobDescriptionForm({initialData, jobId}: Props) {
     const handlePromptGeneration = async () => {
         try {
             setIsPrompting(true)
-            const customPrompt = `Could you please draft a job requirements document for the position pf ${roleName}? 
-            The job description should include roles & responsibilities, key features, and details about the role. 
-            The required skills should include proficiency in ${skills}. 
-            Additionally, you can list any optional skill related to job. Thanks!`
+            const customPrompt = ``
             await getGenerativeAIResponse(customPrompt).then((data) => {
                 data = data.replace(/^'|'$/g, "")
                 let cleanedData = data.replace(/[\*\#]/g, "")
-                // form.setValue("description", cleanedData)
+                // form.setValue("overview", cleanedData)
                 setAIValue(cleanedData)
                 setIsPrompting(false)
             })
@@ -100,12 +96,12 @@ export default function JobDescriptionForm({initialData, jobId}: Props) {
                       className="bg-slate-100/20 rounded p-4 border border-slate-200">
                     <FormField
                         control={form.control}
-                        name="description"
+                        name="overview"
                         render={({field}) => (
                             <FormItem className="flex flex-col">
                                 <div>
                                     <div className="flex items-center justify-between mb-2">
-                                        <FormLabel>Job Description</FormLabel>
+                                        <FormLabel>Company Overview</FormLabel>
                                         {!isEditing &&
                                             <Button type="button" size="icon" variant="secondary"
                                                     onClick={toggleEditing}>
@@ -116,22 +112,13 @@ export default function JobDescriptionForm({initialData, jobId}: Props) {
                                     {isEditing &&
                                         <div className="my-4">
                                             <div className="flex items-center gap-x-2">
-                                                <div className="w-full flex items-center gap-x-2">
-                                                    <Input
-                                                        className="w-full"
-                                                        type="text"
-                                                        placeholder="Job role name"
-                                                        value={roleName}
-                                                        onChange={(e) => setRoleName(e.target.value)}
-                                                    />
-                                                    <Input
-                                                        className="w-full"
-                                                        type="text"
-                                                        placeholder="Required Skills (e.g.: skill, skill, ...)"
-                                                        value={skills}
-                                                        onChange={(e) => setSkills(e.target.value)}
-                                                    />
-                                                </div>
+                                                <Input
+                                                    className="w-full"
+                                                    type="text"
+                                                    placeholder="Company name"
+                                                    value={prompt}
+                                                    onChange={(e) => setPrompt(e.target.value)}
+                                                />
                                                 {isPrompting ?
                                                     <Button type="button" disabled={isSubmitting}>
                                                         <Loader2 className="size-4 animate-spin"/>
@@ -143,7 +130,7 @@ export default function JobDescriptionForm({initialData, jobId}: Props) {
                                                 }
                                             </div>
                                             <p className="text-xs text-right text-neutral-400 mt-1.5">
-                                                *NOTE: Profession Name & Required skills delimetted by comma
+                                                *NOTE: Type the company name over here to generate the overview content
                                             </p>
                                         </div>
                                     }
@@ -167,12 +154,12 @@ export default function JobDescriptionForm({initialData, jobId}: Props) {
                                         <div>
                                             <ReactQuillEditor {...field}/>
                                         </div> :
-                                        form.getValues().description !== "" ?
+                                        form.getValues().overview !== "" ?
                                             <div>
                                                 <ReactQuillPreview {...field}/>
                                             </div> :
                                             <p className="italic font-medium text-xs text-neutral-400">
-                                                No description added
+                                                No Overview added
                                             </p>
                                     }
                                 </FormControl>
@@ -193,6 +180,7 @@ export default function JobDescriptionForm({initialData, jobId}: Props) {
         </div>
     );
 }
+
 
 
 

@@ -2,7 +2,10 @@ import Link from "next/link";
 import {Button} from "@/components/ui/button";
 import {Plus} from "lucide-react";
 import {DataTable} from "@/components/DataTable";
-import {companiesTableColumns} from "@/app/(dashboard)/(routes)/admin/companies/components/CompaniesTableColumns";
+import {
+    CompaniesColumns,
+    companiesTableColumns
+} from "@/app/(dashboard)/(routes)/admin/companies/components/CompaniesTableColumns";
 import {redirect} from "next/navigation";
 import prismaDB from "@/lib/prismaDB";
 import {format} from "date-fns";
@@ -22,7 +25,7 @@ export default async function CompaniesPage() {
         }
     })
 
-    const formattedCompaniesData = companies.map(company => ({
+    const formattedCompaniesData: CompaniesColumns[] = companies.map(company => ({
         id: company.id,
         name: company.name ?? "--",
         logo: company?.logo ?? "",

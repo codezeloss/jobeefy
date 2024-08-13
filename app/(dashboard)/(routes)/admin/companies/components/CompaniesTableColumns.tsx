@@ -7,48 +7,28 @@ import {DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger
 import Link from "next/link";
 import Image from "next/image";
 
-export type JobsColumns = {
+export type CompaniesColumns = {
     id: string
     name: string
     logo: string
     createdAt: string
 }
 
-export const companiesTableColumns: ColumnDef<JobsColumns>[] = [
+export const companiesTableColumns: ColumnDef<CompaniesColumns>[] = [
     {
         accessorKey: "logo",
-        header: ({column}) => {
-            return (
-                <Button
-                    variant="ghost"
-                    onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-                >
-                    Logo
-                    <ArrowUpDown className="ml-2 h-4 w-4"/>
-                </Button>
-            )
-        },
+        header: "Logo",
         cell: ({row}) => {
             const {logo} = row.original
             return (
                 <div>
-                    {logo ?
-                        <Image
-                            className="text-xs text-center p-2"
-                            src={logo}
-                            alt="Company's logo"
-                            width={70}
-                            height={70}
-                        />
-                        :
-                        <Image
-                            className="text-xs text-center p-2"
-                            src="/logo.svg"
-                            alt="Company's logo"
-                            width={70}
-                            height={70}
-                        />
-                    }
+                    <Image
+                        className="w-[100px] h-auto text-xs text-center p-2"
+                        src={logo || "/logo.svg"}
+                        alt="Company's logo"
+                        width={100}
+                        height={100}
+                    />
                 </div>
             )
         },
