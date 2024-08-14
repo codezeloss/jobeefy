@@ -21,9 +21,9 @@ export const companiesTableColumns: ColumnDef<CompaniesColumns>[] = [
         cell: ({row}) => {
             const {logo} = row.original
             return (
-                <div>
+                <div className="p-6">
                     <Image
-                        className="w-[100px] h-auto text-xs text-center p-2"
+                        className="w-[100px] h-[100px] text-xs text-center p-2"
                         src={logo || "/logo.svg"}
                         alt="Company's logo"
                         width={100}

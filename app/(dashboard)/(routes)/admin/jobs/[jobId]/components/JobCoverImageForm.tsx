@@ -59,7 +59,7 @@ export default function JobCoverImageForm({initialData, jobId}: Props) {
 
     const removeUploadedImg = async () => {
         try {
-            const response = await axios.delete("/api/uploadthing", {
+            await axios.delete("/api/uploadthing", {
                 data: {
                     url: form.getValues().imageURL,
                 },

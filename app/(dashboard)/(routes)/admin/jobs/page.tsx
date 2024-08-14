@@ -18,7 +18,8 @@ export default async function JobsPage() {
             userId
         },
         include: {
-            category: true
+            category: true,
+            company: true
         },
         orderBy: {
             createdAt: "desc"
@@ -28,10 +29,10 @@ export default async function JobsPage() {
     const formattedJobsData: JobsColumns[] = jobs.map(job => ({
         id: job.id,
         title: job.title ?? "--",
-        company: "--",
+        company: job?.company?.name ?? "--",
         category: job?.category?.name ?? "--",
         isPublished: job.isPublished,
-        createdAt: job?.createdAt ? format(job.createdAt.toLocaleDateString(), "MMMM do, yyyy") : "--/--/----"
+        createdAt: job?.createdAt ? format(job.createdAt, "MMMM do, yyyy") : "--/--/----"
     }))
 
     return (

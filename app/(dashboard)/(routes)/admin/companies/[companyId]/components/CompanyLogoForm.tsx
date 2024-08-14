@@ -5,7 +5,7 @@ import {useState} from "react";
 import {useToast} from "@/components/ui/use-toast";
 import {Form, FormControl, FormField, FormItem, FormLabel, FormMessage} from "@/components/ui/form";
 import {Button} from "@/components/ui/button";
-import {Pencil, Trash2Icon} from "lucide-react";
+import {Loader2, Pencil, Trash2Icon} from "lucide-react";
 import {useForm} from "react-hook-form";
 import {z} from "zod";
 import {zodResolver} from "@hookform/resolvers/zod";
@@ -28,6 +28,7 @@ export default function CompanyLogoForm({initialData, companyId}: Props) {
     const {toast} = useToast()
     const router = useRouter()
     const [isEditing, setIsEditing] = useState(false)
+    const [loading, setLoading] = useState(false)
 
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
@@ -40,6 +41,7 @@ export default function CompanyLogoForm({initialData, companyId}: Props) {
 
     async function onSubmit(values: z.infer<typeof formSchema>) {
         try {
+            setLoading(true)
             const response = await axios.patch(`/api/companies/${companyId}`, values)
             toast({
                 variant: "default",
@@ -52,6 +54,8 @@ export default function CompanyLogoForm({initialData, companyId}: Props) {
                 variant: "destructive",
                 title: "❌ Something went wrong!"
             })
+        } finally {
+            setLoading(false)
         }
     }
 
@@ -59,6 +63,7 @@ export default function CompanyLogoForm({initialData, companyId}: Props) {
 
     const removeUploadedImg = async () => {
         try {
+            setLoading(true)
             const response = await axios.delete("/api/uploadthing", {
                 data: {
                     url: form.getValues().logo,
@@ -66,7 +71,7 @@ export default function CompanyLogoForm({initialData, companyId}: Props) {
             });
             toast({
                 variant: "default",
-                title: "Logo removed successfully"
+                title: "✅ Logo deleted successfully"
             })
             form.setValue("logo", "")
         } catch (e) {
@@ -75,6 +80,8 @@ export default function CompanyLogoForm({initialData, companyId}: Props) {
                 title: "❌ Something went wrong!",
                 description: "Cannot delete the uploaded logo"
             })
+        } finally {
+            setLoading(false)
         }
     }
 
@@ -105,7 +112,7 @@ export default function CompanyLogoForm({initialData, companyId}: Props) {
                                                     form.setValue("logo", res[0]?.serverData?.uploadedFile)
                                                     toast({
                                                         variant: "default",
-                                                        title: "Logo uploaded successfully"
+                                                        title: "✅ Logo uploaded successfully"
                                                     })
                                                 }}
                                                 onUploadError={(error: Error) => {
@@ -122,27 +129,37 @@ export default function CompanyLogoForm({initialData, companyId}: Props) {
                                         </div> : (isEditing && form.getValues().logo !== "") ?
                                             <div className="relative p-4">
                                                 <Image
-                                                    className="mx-auto w-[200px] h-[200px]"
+                                                    className="text-xs mx-auto w-[200px] h-[200px]"
                                                     src={form.getValues().logo}
                                                     alt="Uploaded image"
                                                     width={100}
                                                     height={100}
                                                     loading="lazy"
                                                 />
-                                                <Button
-                                                    type="button"
-                                                    size="icon"
-                                                    variant="destructive"
-                                                    onClick={removeUploadedImg}
-                                                    className="z-20 absolute top-3 right-3"
-                                                >
-                                                    <Trash2Icon className="size-4"/>
-                                                </Button>
+                                                {loading ?
+                                                    <Button
+                                                        type="button"
+                                                        variant="ghost"
+                                                        className="z-20 absolute top-3 right-3"
+                                                        disabled={isSubmitting || loading}
+                                                    >
+                                                        <Loader2 className="size-4 animate-spin"/>
+                                                    </Button> :
+                                                    <Button
+                                                        type="button"
+                                                        size="icon"
+                                                        variant="destructive"
+                                                        onClick={removeUploadedImg}
+                                                        className="z-20 absolute top-3 right-3"
+                                                    >
+                                                        <Trash2Icon className="size-4"/>
+                                                    </Button>
+                                                }
                                             </div> :
                                             <div>
                                                 {form.getValues().logo !== "" ?
                                                     <Image
-                                                        className="mx-auto w-[200px] h-[200px]"
+                                                        className="text-xs mx-auto w-[200px] h-[200px]"
                                                         src={form.getValues().logo}
                                                         alt="Uploaded image"
                                                         width={100}

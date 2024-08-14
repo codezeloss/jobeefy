@@ -73,7 +73,6 @@ export default function companySocialsForm({initialData, companyId}: Props) {
 
     return (
         <div className="bg-slate-100/20 rounded p-4 border border-slate-200">
-
             <div className="flex items-center justify-between mb-2">
                 <p className="text-sm font-medium">Company Socials</p>
                 {!isEditing &&
@@ -111,113 +110,23 @@ export default function companySocialsForm({initialData, companyId}: Props) {
             )}
 
 
-            {isEditing && <Form {...form}>
-                <form
-                    onSubmit={form.handleSubmit(onSubmit)}
-                    className="space-y-3"
-                >
-                    <FormField
-                        control={form.control}
-                        name="mail"
-                        render={({field}) => (
-                            <FormItem>
-                                <FormLabel className="text-xs">Mail</FormLabel>
-                                <FormControl>
-                                    <Input
-                                        type="email"
-                                        disabled={!isEditing || isSubmitting}
-                                        placeholder="example@company.com"
-                                        {...field}
-                                    />
-                                </FormControl>
-                                <FormMessage/>
-                            </FormItem>
-                        )}
-                    />
-
-                    <FormField
-                        control={form.control}
-                        name="website"
-                        render={({field}) => (
-                            <FormItem>
-                                <FormLabel className="text-xs">Website</FormLabel>
-                                <FormControl>
-                                    <Input
-                                        disabled={!isEditing || isSubmitting}
-                                        placeholder="www.company.com"
-                                        {...field}
-                                    />
-                                </FormControl>
-                                <FormMessage/>
-                            </FormItem>
-                        )}
-                    />
-
-                    <FormField
-                        control={form.control}
-                        name="linkedin"
-                        render={({field}) => (
-                            <FormItem>
-                                <FormLabel className="text-xs">LinkedIn</FormLabel>
-                                <FormControl>
-                                    <Input
-                                        disabled={!isEditing || isSubmitting}
-                                        placeholder="www.linkedin.com/company"
-                                        {...field}
-                                    />
-                                </FormControl>
-                                <FormMessage/>
-                            </FormItem>
-                        )}
-                    />
-
-                    <FormField
-                        control={form.control}
-                        name="address_line_1"
-                        render={({field}) => (
-                            <FormItem>
-                                <FormLabel className="text-xs">Address Line 1</FormLabel>
-                                <FormControl>
-                                    <Input
-                                        disabled={!isEditing || isSubmitting}
-                                        placeholder="www.linkedin.com/company"
-                                        {...field}
-                                    />
-                                </FormControl>
-                                <FormMessage/>
-                            </FormItem>
-                        )}
-                    />
-
-                    <FormField
-                        control={form.control}
-                        name="address_line_2"
-                        render={({field}) => (
-                            <FormItem>
-                                <FormLabel className="text-xs">Address Line 2</FormLabel>
-                                <FormControl>
-                                    <Input
-                                        disabled={!isEditing || isSubmitting}
-                                        placeholder="www.linkedin.com/company"
-                                        {...field}
-                                    />
-                                </FormControl>
-                                <FormMessage/>
-                            </FormItem>
-                        )}
-                    />
-
-                    <div className="grid grid-cols-3 gap-x-3 5">
+            {isEditing &&
+                <Form {...form}>
+                    <form
+                        onSubmit={form.handleSubmit(onSubmit)}
+                        className="space-y-3"
+                    >
                         <FormField
                             control={form.control}
-                            name="city"
+                            name="mail"
                             render={({field}) => (
                                 <FormItem>
-                                    <FormLabel className="text-xs">City</FormLabel>
+                                    <FormLabel className="text-xs">Mail</FormLabel>
                                     <FormControl>
                                         <Input
+                                            type="email"
                                             disabled={!isEditing || isSubmitting}
-                                            placeholder="New York"
+                                            placeholder="example@company.com"
                                             {...field}
                                         />
                                     </FormControl>
@@ -225,50 +134,143 @@ export default function companySocialsForm({initialData, companyId}: Props) {
                                 </FormItem>
                             )}
                         />
-                        <FormField
-                            control={form.control}
-                            name="zipCode"
-                            render={({field}) => (
-                                <FormItem>
-                                    <FormLabel className="text-xs">Zip Code</FormLabel>
-                                    <FormControl>
-                                        <Input
-                                            disabled={!isEditing || isSubmitting}
-                                            placeholder="10000"
-                                            {...field}
-                                        />
-                                    </FormControl>
-                                    <FormMessage/>
-                                </FormItem>
-                            )}
-                        />
-                        <FormField
-                            control={form.control}
-                            name="state"
-                            render={({field}) => (
-                                <FormItem>
-                                    <FormLabel className="text-xs">State</FormLabel>
-                                    <FormControl>
-                                        <Input
-                                            disabled={!isEditing || isSubmitting}
-                                            placeholder="Albany"
-                                            {...field}
-                                        />
-                                    </FormControl>
-                                    <FormMessage/>
-                                </FormItem>
-                            )}
-                        />
-                    </div>
 
-                    {isEditing &&
-                        <div className="flex items-center gap-x-2">
-                            <Button type="submit" size="sm" disabled={!isValid || isSubmitting}>Save</Button>
-                            <Button type="button" size="sm" variant="outline" onClick={toggleEditing}>Cancel</Button>
+                        <FormField
+                            control={form.control}
+                            name="website"
+                            render={({field}) => (
+                                <FormItem>
+                                    <FormLabel className="text-xs">Website</FormLabel>
+                                    <FormControl>
+                                        <Input
+                                            disabled={!isEditing || isSubmitting}
+                                            placeholder="www.company.com"
+                                            {...field}
+                                        />
+                                    </FormControl>
+                                    <FormMessage/>
+                                </FormItem>
+                            )}
+                        />
+
+                        <FormField
+                            control={form.control}
+                            name="linkedin"
+                            render={({field}) => (
+                                <FormItem>
+                                    <FormLabel className="text-xs">LinkedIn</FormLabel>
+                                    <FormControl>
+                                        <Input
+                                            disabled={!isEditing || isSubmitting}
+                                            placeholder="www.linkedin.com/company"
+                                            {...field}
+                                        />
+                                    </FormControl>
+                                    <FormMessage/>
+                                </FormItem>
+                            )}
+                        />
+
+                        <FormField
+                            control={form.control}
+                            name="address_line_1"
+                            render={({field}) => (
+                                <FormItem>
+                                    <FormLabel className="text-xs">Address Line 1</FormLabel>
+                                    <FormControl>
+                                        <Input
+                                            disabled={!isEditing || isSubmitting}
+                                            placeholder="www.linkedin.com/company"
+                                            {...field}
+                                        />
+                                    </FormControl>
+                                    <FormMessage/>
+                                </FormItem>
+                            )}
+                        />
+
+                        <FormField
+                            control={form.control}
+                            name="address_line_2"
+                            render={({field}) => (
+                                <FormItem>
+                                    <FormLabel className="text-xs">Address Line 2</FormLabel>
+                                    <FormControl>
+                                        <Input
+                                            disabled={!isEditing || isSubmitting}
+                                            placeholder="www.linkedin.com/company"
+                                            {...field}
+                                        />
+                                    </FormControl>
+                                    <FormMessage/>
+                                </FormItem>
+                            )}
+                        />
+
+                        <div className="grid grid-cols-3 gap-x-3 5">
+                            <FormField
+                                control={form.control}
+                                name="city"
+                                render={({field}) => (
+                                    <FormItem>
+                                        <FormLabel className="text-xs">City</FormLabel>
+                                        <FormControl>
+                                            <Input
+                                                disabled={!isEditing || isSubmitting}
+                                                placeholder="New York"
+                                                {...field}
+                                            />
+                                        </FormControl>
+                                        <FormMessage/>
+                                    </FormItem>
+                                )}
+                            />
+                            <FormField
+                                control={form.control}
+                                name="zipCode"
+                                render={({field}) => (
+                                    <FormItem>
+                                        <FormLabel className="text-xs">Zip Code</FormLabel>
+                                        <FormControl>
+                                            <Input
+                                                disabled={!isEditing || isSubmitting}
+                                                placeholder="10000"
+                                                {...field}
+                                            />
+                                        </FormControl>
+                                        <FormMessage/>
+                                    </FormItem>
+                                )}
+                            />
+                            <FormField
+                                control={form.control}
+                                name="state"
+                                render={({field}) => (
+                                    <FormItem>
+                                        <FormLabel className="text-xs">State</FormLabel>
+                                        <FormControl>
+                                            <Input
+                                                disabled={!isEditing || isSubmitting}
+                                                placeholder="Albany"
+                                                {...field}
+                                            />
+                                        </FormControl>
+                                        <FormMessage/>
+                                    </FormItem>
+                                )}
+                            />
                         </div>
-                    }
-                </form>
-            </Form>}
+
+                        {isEditing &&
+                            <div className="flex items-center gap-x-2">
+                                <Button type="submit" size="sm" disabled={!isValid || isSubmitting}>Save</Button>
+                                <Button type="button" size="sm" variant="outline"
+                                        onClick={toggleEditing}>Cancel</Button>
+                            </div>
+                        }
+                    </form>
+                </Form>
+            }
         </div>
     );
 }

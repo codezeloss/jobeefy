@@ -64,7 +64,10 @@ export default function CompanyOverviewForm({initialData, companyId}: Props) {
     const handlePromptGeneration = async () => {
         try {
             setIsPrompting(true)
-            const customPrompt = ``
+            const customPrompt = `Generate an overview content about ${prompt}. 
+            Include information about its history, purpose, features, user base, and impact on the industry. 
+            Focus on providing a comprehensive yet concise summary suitable for readers unfamiliar with the platform.`
+
             await getGenerativeAIResponse(customPrompt).then((data) => {
                 data = data.replace(/^'|'$/g, "")
                 let cleanedData = data.replace(/[\*\#]/g, "")

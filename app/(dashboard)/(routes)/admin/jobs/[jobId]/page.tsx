@@ -17,6 +17,8 @@ import JobWorkExperienceForm from "@/app/(dashboard)/(routes)/admin/jobs/[jobId]
 import JobDescriptionForm from "@/app/(dashboard)/(routes)/admin/jobs/[jobId]/components/JobDescriptionForm";
 import JobTagsForm from "@/app/(dashboard)/(routes)/admin/jobs/[jobId]/components/JobTagsForm";
 import Link from "next/link";
+import JobCompanyForm from "@/app/(dashboard)/(routes)/admin/jobs/[jobId]/components/JobCompanyForm";
+import JobAttachmentsForm from "@/app/(dashboard)/(routes)/admin/jobs/[jobId]/components/JobAttachmentsForm";
 
 
 export default async function JobDetailsPage({params}: { params: { jobId: string } }) {
@@ -41,6 +43,14 @@ export default async function JobDetailsPage({params}: { params: { jobId: string
         orderBy: {name: "asc"}
     })
 
+    const companies = await prismaDB.company.findMany({
+        where: {
+            userId
+        },
+        orderBy: {
+            createdAt: "desc"
+        }
+    })
 
     if (!job) return redirect("/admin/jobs")
 
@@ -69,6 +79,7 @@ export default async function JobDetailsPage({params}: { params: { jobId: string
                 </div>
 
                 <JobPublishActions
+                    job={job}
                     jobId={params.jobId}
                     isPublished={job.isPublished}
                     disabled={!isComplete}
@@ -116,12 +127,18 @@ export default async function JobDetailsPage({params}: { params: { jobId: string
                         title="Company Details"
                         icon={Building2Icon}
                     />
-                    <JobTagsForm initialData={job} jobId={job.id}/>
+                    <JobCompanyForm
+                        initialData={job} jobId={job.id}
+                        options={companies.map(company => ({
+                            label: company.name,
+                            value: company.id
+                        }))}
+                    />
                     <JobDetailTile
                         title="Resources & Attachments"
                         icon={LucidePaperclip}
                     />
-                    <JobTagsForm initialData={job} jobId={job.id}/>
+                    <JobAttachmentsForm initialData={job} jobId={job.id}/>
                 </div>
 
                 <div className="col-span-2">

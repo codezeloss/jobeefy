@@ -13,6 +13,7 @@ import CompanyCoverImage from "@/app/(dashboard)/(routes)/admin/companies/[compa
 import CompanySocialsForm from "@/app/(dashboard)/(routes)/admin/companies/[companyId]/components/CompanySocialsForm";
 import CompanyOverviewForm from "@/app/(dashboard)/(routes)/admin/companies/[companyId]/components/CompanyOverviewForm";
 import CompanyWhyForm from "@/app/(dashboard)/(routes)/admin/companies/[companyId]/components/CompanyWhyForm";
+import CompanyActions from "@/app/(dashboard)/(routes)/admin/companies/[companyId]/components/CompanyActions";
 
 export default async function CompanyDetailsPage({params}: { params: { companyId: string } }) {
     // ** Verify the mongoDB ID
@@ -70,7 +71,11 @@ export default async function CompanyDetailsPage({params}: { params: { companyId
                 </div>
 
 
-                <div></div>
+                <CompanyActions
+                    company={company}
+                    companyId={params.companyId}
+                    disabled={false}
+                />
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 my-16">

@@ -29,7 +29,7 @@ export default async function CompaniesPage() {
         id: company.id,
         name: company.name ?? "--",
         logo: company?.logo ?? "",
-        createdAt: company?.createdAt ? format(company.createdAt.toLocaleDateString(), "MMMM do, yyyy") : "--/--/----"
+        createdAt: company?.createdAt ? format(company.createdAt, "MMMM do, yyyy") : "--/--/----"
     }))
 
     return (

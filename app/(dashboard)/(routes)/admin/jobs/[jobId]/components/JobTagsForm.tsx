@@ -89,8 +89,9 @@ export default function JobTagsForm({initialData, jobId}: Props) {
     }
 
     useEffect(() => {
-        form.setValue("tags", jobTags)
+        if (jobTags.length > 0) form.setValue("tags", jobTags)
     }, [jobTags]);
+
 
     return (
         <div>
@@ -191,7 +192,7 @@ export default function JobTagsForm({initialData, jobId}: Props) {
                     {isEditing &&
                         <div className="w-full flex items-center justify-between">
                             <Button type="submit" size="sm"
-                                    disabled={isSubmitting || jobTags.length === 0 || form.getValues().tags.length === 0}>
+                                    disabled={isSubmitting}>
                                 Save
                             </Button>
 

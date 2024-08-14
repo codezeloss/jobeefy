@@ -66,7 +66,7 @@ export default function CompanyCoverImage({initialData, companyId}: Props) {
             });
             toast({
                 variant: "default",
-                title: "Image removed successfully"
+                title: "✅ Image removed successfully"
             })
             form.setValue("coverImage", "")
         } catch (e) {
@@ -105,7 +105,7 @@ export default function CompanyCoverImage({initialData, companyId}: Props) {
                                                     form.setValue("coverImage", res[0]?.serverData?.uploadedFile)
                                                     toast({
                                                         variant: "default",
-                                                        title: "Image uploaded successfully"
+                                                        title: "✅ Image uploaded successfully"
                                                     })
                                                 }}
                                                 onUploadError={(error: Error) => {
@@ -122,7 +122,7 @@ export default function CompanyCoverImage({initialData, companyId}: Props) {
                                         </div> : (isEditing && form.getValues().coverImage !== "") ?
                                             <div className="relative">
                                                 <Image
-                                                    className="w-full h-full rounded"
+                                                    className="w-full h-auto rounded"
                                                     src={form.getValues().coverImage}
                                                     alt="Uploaded image"
                                                     width={400}

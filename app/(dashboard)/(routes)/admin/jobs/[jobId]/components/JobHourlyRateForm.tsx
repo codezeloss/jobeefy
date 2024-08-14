@@ -83,7 +83,7 @@ export default function JobHourlyRateForm({initialData, jobId}: Props) {
                                         className="w-[90px]"
                                         disabled={!isEditing || isSubmitting}
                                         type="number"
-                                        placeholder="Enter an Hourly Rate"
+                                        placeholder="0"
                                         {...field}
                                     />
                                     <p className="w-[5%] text-sm">/hr</p>

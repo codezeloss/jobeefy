@@ -64,7 +64,11 @@ export default function CompanyWhyForm({initialData, companyId}: Props) {
     const handlePromptGeneration = async () => {
         try {
             setIsPrompting(true)
-            const customPrompt = ``
+            const customPrompt = `Create a completing "Why join us" content piece for ${prompt}.
+            Highlight the unique opportunities, benefits, and experiences that ${prompt} offers to its users. 
+            Emphasize the platform's value proposition, such as access to a personalized recommendations, exclusive content, community features, and career opportunities, etc... 
+            Tailor the content to attract potential users and illustrate why ${prompt} stands out among others.`
+
             await getGenerativeAIResponse(customPrompt).then((data) => {
                 data = data.replace(/^'|'$/g, "")
                 let cleanedData = data.replace(/[\*\#]/g, "")
@@ -130,7 +134,8 @@ export default function CompanyWhyForm({initialData, companyId}: Props) {
                                                 }
                                             </div>
                                             <p className="text-xs text-right text-neutral-400 mt-1.5">
-                                                *NOTE: Type the company name over here to generate the overview content
+                                                *NOTE: Type the company name over here to generate the "Why Join Us?"
+                                                content
                                             </p>
                                         </div>
                                     }

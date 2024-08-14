@@ -28,10 +28,11 @@ model Job {
   hourlyRate        String?
   yearsOfExperience String?
   workMode          String?
+  attachments       Json?
   categoryId        String?   @db.ObjectId
   category          Category? @relation(fields: [categoryId], references: [id])
   companyId         String?   @db.ObjectId
-  Company           Company?  @relation(fields: [companyId], references: [id])
+  company           Company?  @relation(fields: [companyId], references: [id])
   createdAt         DateTime  @default(now())
   updatedAt         DateTime  @updatedAt
 

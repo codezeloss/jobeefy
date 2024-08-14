@@ -32,6 +32,15 @@ export const ourFileRouter = {
         .onUploadComplete(async ({metadata, file}) => {
             return {uploadedBy: metadata.userId, uploadedFile: file.url};
         }),
+    jobAttachedFile: f({pdf: {maxFileSize: "32MB", maxFileCount: 1}})
+        .middleware(async ({req}) => {
+            const {userId} = auth()
+            if (!userId) throw new UploadThingError("Unauthorized");
+            return {userId: userId};
+        })
+        .onUploadComplete(async ({metadata, file}) => {
+            return {uploadedBy: metadata.userId, uploadedFileURL: file.url, uploadedFileName: file.name};
+        })
 } satisfies FileRouter;
 
 export type OurFileRouter = typeof ourFileRouter;
