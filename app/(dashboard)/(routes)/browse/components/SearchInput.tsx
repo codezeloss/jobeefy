@@ -3,17 +3,49 @@
 import {Search, X} from "lucide-react";
 import {Input} from "@/components/ui/input";
 import {Button} from "@/components/ui/button";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {Category} from "@prisma/client";
 import CategoryListItem from "@/app/(dashboard)/(routes)/browse/components/CategoryListItem";
+import {usePathname, useRouter, useSearchParams} from "next/navigation";
+import {useDebounce} from "@/hooks/use-debounce";
+import qs from "query-string";
 
 interface Props {
     categories: Category[]
 }
 
 export default function SearchInput({categories}: Props) {
-    const [value, setValue] = useState("")
+    const searchParams = useSearchParams()
+    const router = useRouter()
+    const pathname = usePathname()
 
+    const currentCategoryId = searchParams.get("categoryId")
+    const currentTitle = searchParams.get("title")
+    const createdAtFilter = searchParams.get("createdAtFilter")
+    const currentShiftTimings = searchParams.get("shiftTimings")
+    const currentWorkMode = searchParams.get("workMode")
+
+    const [value, setValue] = useState(currentTitle || "")
+
+    const debounceValue = useDebounce(value)
+
+    useEffect(() => {
+        const url = qs.stringifyUrl({
+            url: pathname,
+            query: {
+                title: debounceValue,
+                categoryId: currentCategoryId,
+                createdAtFilter: createdAtFilter,
+                shiftTimings: currentShiftTimings,
+                workMode: currentWorkMode
+            }
+        }, {
+            skipNull: true,
+            skipEmptyString: true
+        })
+
+        router.push(url)
+    }, [debounceValue, router, pathname, currentCategoryId, createdAtFilter, currentShiftTimings, currentWorkMode]);
 
     return (
         <div className="space-y-4 mb-11">

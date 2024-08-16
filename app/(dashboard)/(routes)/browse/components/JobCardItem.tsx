@@ -5,13 +5,16 @@ import {useState} from "react"
 
 import {Button} from "@/components/ui/button"
 import {Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle,} from "@/components/ui/card"
-import {Banknote, Bookmark, BookmarkCheck, BriefcaseBusiness, MapPin, User} from "lucide-react";
+import {Banknote, Bookmark, BookmarkCheck, BriefcaseBusiness, Loader2, MapPin, User} from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import {formatDistanceToNow} from "date-fns";
 import {motion} from "framer-motion"
 import {formattedString} from "@/lib/utils";
 import {truncate} from "lodash";
+import {useRouter} from "next/navigation";
+import {useToast} from "@/components/ui/use-toast";
+import axios from "axios";
 
 interface Props {
     job: any
@@ -19,7 +22,43 @@ interface Props {
 }
 
 export function JobCardItem({job, userId}: Props) {
+    const router = useRouter()
+    const {toast} = useToast()
+
     const [isBookmarkedLoading, setIsBookmarkedLoading] = useState(false)
+
+    const isSavedByUser = userId && job.savedUsers?.includes(userId)
+    const SavedUsersIcon = isSavedByUser ? BookmarkCheck : Bookmark
+
+    const onClickSave = async () => {
+        try {
+            setIsBookmarkedLoading(true)
+
+            if (isSavedByUser) {
+                await axios.patch(`/api/jobs/${job.id}/unsave-job`, {})
+                toast({
+                    variant: "default",
+                    title: "✅ Job unsaved successfully"
+                })
+            } else {
+                await axios.patch(`/api/jobs/${job.id}/save-job`, {})
+                toast({
+                    variant: "default",
+                    title: "✅ Job saved successfully"
+                })
+            }
+
+            router.refresh()
+        } catch (e) {
+            toast({
+                variant: "destructive",
+                title: "❌ Something went wrong!",
+                description: "Cannot save the job, please try again."
+            })
+        } finally {
+            setIsBookmarkedLoading(false)
+        }
+    }
 
     return (
         <motion.div layout>
@@ -32,10 +71,12 @@ export function JobCardItem({job, userId}: Props) {
                         <Button
                             variant="ghost"
                             size="icon"
-                            className="w-auto h-auto p-0 m-0 bg-transparent"
+                            className={`w-auto h-auto p-0 m-0 bg-transparent ${isSavedByUser && "text-green-600"}`}
                             type="button"
+                            onClick={onClickSave}
                         >
-                            {isBookmarkedLoading ? <Bookmark className="size-4"/> : <BookmarkCheck className="size-4"/>}
+                            {isBookmarkedLoading ? <Loader2 className="size-4 animate-spin"/> :
+                                <SavedUsersIcon className="size-4"/>}
                         </Button>
                     </div>
 
@@ -99,9 +140,28 @@ export function JobCardItem({job, userId}: Props) {
                 </CardContent>
 
                 <CardFooter className="grid grid-cols-2 gap-x-2 mt-auto">
-                    <Link href={`/browse/${job.id}`}><Button type="button" className="" variant="outline"
-                                                             size="sm">Details</Button></Link>
-                    <Button type="button" size="sm">Saved</Button>
+                    <Link href={`/browse/${job.id}`}>
+                        <Button
+                            disabled={isBookmarkedLoading}
+                            type="button"
+                            className="w-full"
+                            variant="outline"
+                            size="sm"
+                        >
+                            Details
+                        </Button>
+                    </Link>
+
+                    <Button
+                        disabled={isBookmarkedLoading}
+                        variant={isSavedByUser ? "secondary" : "default"}
+                        className={`w-full font-semibold`}
+                        type="button"
+                        size="sm"
+                        onClick={onClickSave}
+                    >
+                        {isSavedByUser ? "Saved" : "Save for later"}
+                    </Button>
                 </CardFooter>
             </Card>
         </motion.div>

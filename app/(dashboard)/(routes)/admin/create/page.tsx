@@ -33,6 +33,7 @@ export default function JobCreatePage() {
             const response = await axios.post("/api/jobs", values)
             router.push(`/admin/jobs/${response.data.id}`)
             toast({
+                variant: "default",
                 description: "✅ Your Job has been created",
             })
         } catch (error) {

@@ -34,7 +34,7 @@ export default function HeaderButtons() {
                                     size="sm"
                                     className="font-semibold text-blue-500 hover:text-blue-600 hover:bg-transparent"
                                 >
-                                    Talent Seeker
+                                    Talents Seeker
                                 </Button>
                             </Link>
                         )}

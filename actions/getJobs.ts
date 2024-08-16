@@ -37,6 +37,24 @@ export const getJobs = async ({
             }
         }
 
+        if (typeof title !== "undefined" || typeof categoryId !== "undefined") {
+            query.where = {
+                AND: [
+                    typeof title !== "undefined" && {
+                        title: {
+                            contains: title,
+                            mode: "insensitive"
+                        }
+                    },
+                    typeof categoryId !== "undefined" && {
+                        categoryId: {
+                            equals: categoryId
+                        }
+                    }
+                ].filter(Boolean)
+            }
+        }
+
         return await prismaDB.job.findMany(query)
     } catch (e) {
         console.log("[GET_JOBS]: ", e)
