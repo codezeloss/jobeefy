@@ -2,7 +2,7 @@ import SearchInput from "@/app/(dashboard)/(routes)/browse/components/SearchInpu
 import prismaDB from "@/lib/prismaDB";
 import {auth} from "@clerk/nextjs/server";
 import {getJobs} from "@/actions/getJobs";
-import {JobCard} from "@/app/(dashboard)/(routes)/browse/components/JobCard";
+import JobsContent from "@/app/(dashboard)/(routes)/browse/components/JobsContent";
 
 interface SearchProps {
     searchParams: {
@@ -28,13 +28,8 @@ export default async function BrowsePage({searchParams}: SearchProps) {
 
     return (
         <div className="w-full h-full bg-white">
-            <SearchInput tags={categories}/>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-4">
-                {jobs.map((item, index) => (
-                    <JobCard key={index} job={item}/>
-                ))}
-            </div>
+            <SearchInput categories={categories}/>
+            <JobsContent jobs={jobs} userId={userId}/>
         </div>
     );
 }

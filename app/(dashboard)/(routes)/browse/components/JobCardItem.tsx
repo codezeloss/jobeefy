@@ -10,9 +10,10 @@ import Link from "next/link";
 
 interface Props {
     job: any
+    userId: string | null
 }
 
-export function JobCard({job}: Props) {
+export function JobCardItem({job, userId}: Props) {
     return (
         <Card className="w-full shadow-none rounded">
             <CardHeader>
@@ -46,21 +47,21 @@ export function JobCard({job}: Props) {
             </CardHeader>
 
             <CardContent className="space-y-4">
-                <div className="grid grid-cols-4 gap-x-2 text-xs font-medium text-muted-foreground">
+                <div className="grid grid-cols-4 gap-1 text-xs font-medium text-muted-foreground">
                     <div className="flex items-center gap-x-1">
-                        <BriefcaseBusiness className="size-3.5"/>
+                        <BriefcaseBusiness className="size-3"/>
                         <p className="">Full Time</p>
                     </div>
                     <div className="flex items-center gap-x-1">
-                        <MapPin className="size-3.5"/>
+                        <MapPin className="size-3"/>
                         <p className="">Office</p>
                     </div>
                     <div className="flex items-center gap-x-1">
-                        <Banknote className="size-3.5"/>
+                        <Banknote className="size-3"/>
                         <p className="">22 $/hrs</p>
                     </div>
                     <div className="flex items-center gap-x-1">
-                        <User className="size-3.5"/>
+                        <User className="size-3"/>
                         <p className="">Fresher</p>
                     </div>
                 </div>
@@ -75,7 +76,7 @@ export function JobCard({job}: Props) {
                     {job.tags.map((item: string, index: number) => (
                         <p
                             key={index}
-                            className="text-xs bg-slate-100 rounded font-semibold px-2 py-1"
+                            className="text-xs bg-slate-100 rounded font-medium px-2 py-1"
                         >
                             {item}
                         </p>

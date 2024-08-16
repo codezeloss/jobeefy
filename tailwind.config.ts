@@ -75,7 +75,7 @@ const config = withUt({
             },
         },
     },
-    plugins: [require("tailwindcss-animate")],
+    plugins: [require("tailwindcss-animate"), require('tailwind-scrollbar')],
 }) satisfies Config
 
 export default config

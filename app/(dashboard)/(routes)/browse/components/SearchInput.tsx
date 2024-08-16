@@ -5,12 +5,13 @@ import {Input} from "@/components/ui/input";
 import {Button} from "@/components/ui/button";
 import {useState} from "react";
 import {Category} from "@prisma/client";
+import CategoryListItem from "@/app/(dashboard)/(routes)/browse/components/CategoryListItem";
 
 interface Props {
-    tags: Category[]
+    categories: Category[]
 }
 
-export default function SearchInput({tags}: Props) {
+export default function SearchInput({categories}: Props) {
     const [value, setValue] = useState("")
 
 
@@ -36,16 +37,9 @@ export default function SearchInput({tags}: Props) {
                 </Button>
             </div>
 
-            <div className="w-full flex items-center gap-3 flex-wrap">
-                {tags.map((item, index) => (
-                    <Button
-                        className=""
-                        key={index} type="button"
-                        variant="secondary"
-                        size="sm"
-                    >
-                        {item.name}
-                    </Button>
+            <div className="w-full flex items-center gap-x-2 overflow-x-auto scrollbar-none">
+                {categories.map((category, index) => (
+                    <CategoryListItem key={index} label={category.name} value={category.id}/>
                 ))}
             </div>
         </div>
