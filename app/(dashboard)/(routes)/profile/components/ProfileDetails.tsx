@@ -11,7 +11,6 @@ import {Mail, Phone, User2} from "lucide-react";
 import {useRouter} from "next/navigation";
 import {useState} from "react";
 import axios from "axios";
-import {UploadthingButton} from "@/utils/uploadthing";
 
 
 const FormSchema = z.object({
@@ -51,26 +50,6 @@ export default function ProfileDetails() {
 
     const toggleEditing = () => setIsEditing((current) => !current)
 
-    const removeUploadedImg = async () => {
-        try {
-            const response = await axios.delete("/api/uploadthing", {
-                data: {
-                    url: form.getValues().profileImage,
-                },
-            });
-            toast({
-                variant: "default",
-                title: "✅ Image removed successfully"
-            })
-            form.setValue("profileImage", "")
-        } catch (e) {
-            toast({
-                variant: "destructive",
-                title: "❌ Something went wrong!",
-                description: "Cannot delete the uploaded image"
-            })
-        }
-    }
 
     return (
         <div className="grid grid-cols-2 justify-between py-8">
@@ -81,24 +60,6 @@ export default function ProfileDetails() {
                     className="text-sm w-[200px] h-[200px] object-contain rounded-full border-2 border-black p-2"
                     width={200}
                     height={200}
-                />
-
-                <UploadthingButton
-                    endpoint="companyCoverImage"
-                    onClientUploadComplete={(res) => {
-                        form.setValue("profileImage", res[0]?.serverData?.uploadedFile)
-                        toast({
-                            variant: "default",
-                            title: "✅ Image uploaded successfully"
-                        })
-                    }}
-                    onUploadError={(error: Error) => {
-                        toast({
-                            variant: "destructive",
-                            title: "❌ Something went wrong!",
-                            description: "Image cannot be uploaded"
-                        })
-                    }}
                 />
             </div>
 
