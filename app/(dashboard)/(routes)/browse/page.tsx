@@ -4,6 +4,7 @@ import {auth} from "@clerk/nextjs/server";
 import {getJobs} from "@/actions/getJobs";
 import JobsContent from "@/app/(dashboard)/(routes)/browse/components/JobsContent";
 import JobsContentFilter from "@/app/(dashboard)/(routes)/browse/components/JobsContentFilter";
+import AppliedFilters from "@/app/(dashboard)/(routes)/browse/components/AppliedFilters";
 
 interface SearchProps {
     searchParams: {
@@ -31,6 +32,7 @@ export default async function BrowsePage({searchParams}: SearchProps) {
         <div className="w-full h-full bg-white">
             <SearchInput categories={categories}/>
             <JobsContentFilter/>
+            <AppliedFilters categories={categories}/>
             <JobsContent jobs={jobs} userId={userId}/>
         </div>
     );

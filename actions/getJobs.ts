@@ -37,6 +37,7 @@ export const getJobs = async ({
             }
         }
 
+        // ---> Filter data based on the "categoryId" & "title"
         if (typeof title !== "undefined" || typeof categoryId !== "undefined") {
             query.where = {
                 AND: [
@@ -55,7 +56,7 @@ export const getJobs = async ({
             }
         }
 
-        // Check whether "createdAtFilter" is provided or not
+        // ---> Check whether "createdAtFilter" is provided or not
         if (createdAtFilter) {
             const currentDate = new Date();
             let startDate: Date
@@ -90,6 +91,33 @@ export const getJobs = async ({
 
             query.where.createdAt = {
                 gte: startDate
+            }
+        }
+
+        // ---> Filter data based on the "shiftTimings"
+        let formattedShiftTimings = shiftTimings?.split(",")
+
+        if (formattedShiftTimings && formattedShiftTimings.length > 0) {
+            query.where.shiftTimings = {
+                in: formattedShiftTimings
+            }
+        }
+
+        // ---> Filter data based on the "workMode"
+        let formattedWorkingModes = workMode?.split(",")
+
+        if (formattedWorkingModes && formattedWorkingModes.length > 0) {
+            query.where.workMode = {
+                in: formattedWorkingModes
+            }
+        }
+
+        // ---> Filter data based on the "yearsOfExperience"
+        let formattedExperiences = yearsOfExperience?.split(",")
+
+        if (formattedExperiences && formattedExperiences.length > 0) {
+            query.where.yearsOfExperience = {
+                in: formattedExperiences
             }
         }
 
