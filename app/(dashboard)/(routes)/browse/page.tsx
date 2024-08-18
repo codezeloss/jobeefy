@@ -3,6 +3,7 @@ import prismaDB from "@/lib/prismaDB";
 import {auth} from "@clerk/nextjs/server";
 import {getJobs} from "@/actions/getJobs";
 import JobsContent from "@/app/(dashboard)/(routes)/browse/components/JobsContent";
+import JobsContentFilter from "@/app/(dashboard)/(routes)/browse/components/JobsContentFilter";
 
 interface SearchProps {
     searchParams: {
@@ -29,6 +30,7 @@ export default async function BrowsePage({searchParams}: SearchProps) {
     return (
         <div className="w-full h-full bg-white">
             <SearchInput categories={categories}/>
+            <JobsContentFilter/>
             <JobsContent jobs={jobs} userId={userId}/>
         </div>
     );

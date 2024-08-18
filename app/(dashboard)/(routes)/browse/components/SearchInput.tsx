@@ -48,7 +48,7 @@ export default function SearchInput({categories}: Props) {
     }, [debounceValue, router, pathname, currentCategoryId, createdAtFilter, currentShiftTimings, currentWorkMode]);
 
     return (
-        <div className="space-y-4 mb-11">
+        <div className="space-y-4 mb-8">
             <div className="w-fulll flex items-center border border-b-slate-200 gap-x-1 rounded px-4 py-1">
                 <Search className="size-4"/>
                 <Input
