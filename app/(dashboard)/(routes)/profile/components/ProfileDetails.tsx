@@ -7,17 +7,27 @@ import {useForm} from "react-hook-form";
 import {zodResolver} from "@hookform/resolvers/zod";
 import {Form, FormControl, FormField, FormItem, FormLabel, FormMessage,} from "@/components/ui/form"
 import {Input} from "@/components/ui/input"
-import {Mail, Phone, User2} from "lucide-react";
+import {Mail, Pencil, Phone, User2} from "lucide-react";
 import {useRouter} from "next/navigation";
 import {useState} from "react";
 import axios from "axios";
+import {Button} from "@/components/ui/button";
+import {useUser} from '@clerk/nextjs'
+import {UserProfile} from "@prisma/client";
 
+interface Props {
+    initialData: UserProfile | null
+    userId: string
+}
 
 const FormSchema = z.object({
-    profileImage: z.string(),
+    fullName: z.string(),
+    email: z.string(),
+    contact: z.string(),
 })
 
-export default function ProfileDetails() {
+export default function ProfileDetails({initialData, userId}: Props) {
+    const {user} = useUser()
     const {toast} = useToast()
     const router = useRouter()
     const [isEditing, setIsEditing] = useState(false)
@@ -25,7 +35,9 @@ export default function ProfileDetails() {
     const form = useForm<z.infer<typeof FormSchema>>({
         resolver: zodResolver(FormSchema),
         defaultValues: {
-            profileImage: "",
+            fullName: initialData?.fullName || "",
+            email: initialData?.email || "",
+            contact: initialData?.contact || "",
         },
     })
 
@@ -33,10 +45,10 @@ export default function ProfileDetails() {
 
     async function onSubmit(values: z.infer<typeof FormSchema>) {
         try {
-            const response = await axios.patch(`/api/companies`, values)
+            await axios.patch(`/api/users/${userId}`, values)
             toast({
                 variant: "default",
-                title: "✅ Company updated successfully"
+                title: "✅ Profile updated successfully"
             })
             toggleEditing()
             router.refresh()
@@ -50,28 +62,37 @@ export default function ProfileDetails() {
 
     const toggleEditing = () => setIsEditing((current) => !current)
 
-
     return (
         <div className="grid grid-cols-2 justify-between py-8">
-            <div className="w-full flex flex-col gap-4 items-center justify-center">
+            <div className="w-full flex flex-col gap-4 items-center justify-start">
                 <Image
-                    src="https://utfs.io/f/90627169-c98c-4dc2-999f-2ff2818ca0e7-rhubr9.svg"
+                    src={(user?.hasImage && user?.imageUrl) ? user.imageUrl : "/placeholder.svg"}
                     alt="Profile image"
-                    className="text-sm w-[200px] h-[200px] object-contain rounded-full border-2 border-black p-2"
-                    width={200}
-                    height={200}
+                    className="text-sm w-[250px] h-[250px] object-contain rounded-full border-2 border-black p-2"
+                    width={250}
+                    height={250}
                 />
             </div>
 
 
             <div className="">
-                <h2 className="font-semibold text-lg mb-4">Profile Details</h2>
+                <div className="flex items-center gap-x-2 mb-4">
+                    <h2 className="font-semibold text-base">Profile Details</h2>
+
+                    {!isEditing &&
+                        <Button className="bg-transparent p-0" type="button" size="icon" variant="ghost"
+                                onClick={toggleEditing}>
+                            <Pencil className="size-3.5"/>
+                        </Button>
+                    }
+                </div>
+
 
                 <Form {...form}>
                     <form onSubmit={form.handleSubmit(onSubmit)} className="w-2/3 space-y-6">
                         <FormField
                             control={form.control}
-                            name="profileImage"
+                            name="fullName"
                             render={({field}) => (
                                 <FormItem>
                                     <FormLabel>
@@ -80,8 +101,9 @@ export default function ProfileDetails() {
                                             Full Name
                                         </div>
                                     </FormLabel>
+
                                     <FormControl>
-                                        <Input placeholder="shadcn" {...field} />
+                                        <Input type="text" disabled={!isEditing} {...field} />
                                     </FormControl>
 
                                     <FormMessage/>
@@ -91,17 +113,17 @@ export default function ProfileDetails() {
 
                         <FormField
                             control={form.control}
-                            name="profileImage"
+                            name="email"
                             render={({field}) => (
                                 <FormItem>
                                     <FormLabel>
                                         <div className="flex items-center gap-x-2">
                                             <Mail className="size-4"/>
-                                            Email
+                                            Email address
                                         </div>
                                     </FormLabel>
                                     <FormControl>
-                                        <Input placeholder="shadcn" {...field} />
+                                        <Input type="email" disabled={!isEditing} {...field} />
                                     </FormControl>
 
                                     <FormMessage/>
@@ -111,7 +133,7 @@ export default function ProfileDetails() {
 
                         <FormField
                             control={form.control}
-                            name="profileImage"
+                            name="contact"
                             render={({field}) => (
                                 <FormItem>
                                     <FormLabel>
@@ -121,13 +143,20 @@ export default function ProfileDetails() {
                                         </div>
                                     </FormLabel>
                                     <FormControl>
-                                        <Input placeholder="shadcn" {...field} />
+                                        <Input type="tel" disabled={!isEditing} {...field} />
                                     </FormControl>
-
                                     <FormMessage/>
                                 </FormItem>
                             )}
                         />
+
+                        {isEditing &&
+                            <div className="flex items-center gap-x-2">
+                                <Button type="submit" size="sm" disabled={isSubmitting}>Save</Button>
+                                <Button type="button" size="sm" variant="outline"
+                                        onClick={toggleEditing}>Cancel</Button>
+                            </div>
+                        }
                     </form>
                 </Form>
             </div>

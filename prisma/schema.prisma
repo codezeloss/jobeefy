@@ -79,7 +79,7 @@ model UserProfile {
   email          String?
   contact        String?
   appliedJobs    AppliedJob[]
-  resumes        Resume[]
+  resumes        Json?
   activeResumeId String?
 }
 
@@ -88,16 +88,4 @@ model AppliedJob {
   appliedAt     DateTime     @default(now())
   UserProfile   UserProfile? @relation(fields: [userProfileId], references: [userId], onDelete: Cascade)
   userProfileId String?
-}
-
-model Resume {
-  id            String       @id @default(auto()) @map("_id") @db.ObjectId
-  name          String
-  url           String
-  UserProfile   UserProfile? @relation(fields: [userProfileId], references: [userId], onDelete: Cascade)
-  userProfileId String?
-  createdAt     DateTime     @default(now())
-  updatedAt     DateTime     @updatedAt
-
-  @@index([userProfileId], name: "idx_userProfileId")
 }

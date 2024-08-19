@@ -190,7 +190,8 @@ export default function JobAttachmentsForm({initialData, jobId}: Props) {
                             </div>
                         }
                     </form>
-                </Form>}
+                </Form>
+            }
         </div>
     );
 }
