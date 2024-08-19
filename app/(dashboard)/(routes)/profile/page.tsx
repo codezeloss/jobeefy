@@ -17,6 +17,7 @@ export default async function ProfilePage() {
         }
     })
 
+
     return (
         <div className="w-full h-full bg-white space-y-8 sm:space-y-11 lg:space-y-14">
             <CustomBreadCrumb breadCrumbPage="My Profile"/>

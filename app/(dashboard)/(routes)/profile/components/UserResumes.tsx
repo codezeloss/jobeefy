@@ -20,7 +20,7 @@ interface Props {
 }
 
 const formSchema = z.object({
-    resumes: z.object({url: z.string(), name: z.string()}).array(),
+    resumes: z.object({url: z.string(), name: z.string(), active: z.boolean()}).array(),
 })
 
 export default function UserResumes({initialData, userId}: Props) {
@@ -35,11 +35,12 @@ export default function UserResumes({initialData, userId}: Props) {
                 typeof resume === "object" &&
                 resume !== null &&
                 "url" in resume &&
-                "name" in resume
+                "name" in resume &&
+                "active" in resume
             ) {
-                return {url: resume.url, name: resume.name};
+                return {url: resume.url, name: resume.name, active: resume.active};
             }
-            return {url: "", name: ""};
+            return {url: "", name: "", active: false};
         })
         : [];
 
@@ -100,6 +101,19 @@ export default function UserResumes({initialData, userId}: Props) {
         }
     }
 
+    const handleResumeActivation = (index: number) => {
+        let resumes = form.getValues().resumes.map((resume, i) => ({
+            ...resume,
+            active: i === index ? !resume.active : false,
+        }));
+
+        resumes = resumes.sort((a: any, b: any) => b.active - a.active);
+        form.setValue('resumes', resumes);
+    }
+
+    console.log(initialResumes.filter(item => item.active === true).length)
+
+
     return (
         <div>
             <div className="flex items-center gap-x-2 mb-4">
@@ -112,22 +126,34 @@ export default function UserResumes({initialData, userId}: Props) {
                 }
             </div>
 
+            {!isEditing &&
+                initialResumes.filter(item => item.active === true).length === 0 &&
+                <p className="italic font-medium text-xs text-neutral-400 mb-4">
+                    No active resume
+                </p>
+            }
 
-            {((!isEditing && initialResumes.length > 0) || (isEditing && form.getValues().resumes.length > 0)) ? (
+            {(!isEditing &&
+                initialResumes.length > 0) && (
                 <div className="flex flex-col gap-y-2 mb-3">
                     {initialResumes.map((item, index) => (
                         <UploadedFile
                             key={index}
                             name={item.name}
+                            active={item.active}
                             onDelete={() => removeUploadedFile(item.url)}
                             loading={removingLoading}
                             isEditing={false}
                         />
                     ))}
                 </div>
-            ) : <p className="italic font-medium text-xs text-neutral-400">
-                No uploaded resumes
-            </p>
+            )
+            }
+
+            {isEditing && initialResumes.length === 0 &&
+                <p className="italic font-medium text-xs text-neutral-400 mb-4">
+                    No uploaded resume
+                </p>
             }
 
             {isEditing &&
@@ -141,18 +167,23 @@ export default function UserResumes({initialData, userId}: Props) {
                                 <FormItem>
                                     <FormControl>
                                         <div>
-                                            {form.getValues().resumes.length > 0 && (
-                                                <div className="flex flex-col gap-y-2 mt-4 mb-8">
-                                                    {form.getValues().resumes.map((item, index) => (
-                                                        <UploadedFile
-                                                            key={index}
-                                                            name={item.name}
-                                                            onDelete={() => removeUploadedFile(item.url)}
-                                                            loading={removingLoading}
-                                                            isEditing={true}
-                                                        />
-                                                    ))}
-                                                </div>)
+                                            {form.getValues().resumes.length > 0 ? (
+                                                    <div className="flex flex-col gap-y-2 mt-4 mb-8">
+                                                        {form.getValues().resumes.map((item, index) => (
+                                                            <UploadedFile
+                                                                key={index}
+                                                                name={item.name}
+                                                                active={item.active}
+                                                                onDelete={() => removeUploadedFile(item.url)}
+                                                                onStatusClick={() => handleResumeActivation(index)}
+                                                                loading={removingLoading}
+                                                                isEditing={true}
+                                                            />
+                                                        ))}
+                                                    </div>) :
+                                                <p className="italic font-medium text-xs text-neutral-400">
+                                                    No uploaded resumes
+                                                </p>
                                             }
 
                                             <UploadthingDropzone
@@ -162,7 +193,8 @@ export default function UserResumes({initialData, userId}: Props) {
                                                     const uploadedFiles = [...form.getValues().resumes]
                                                     form.setValue("resumes", [...uploadedFiles, {
                                                         name: res[0]?.serverData?.uploadedFileName,
-                                                        url: res[0]?.serverData?.uploadedFileURL
+                                                        url: res[0]?.serverData?.uploadedFileURL,
+                                                        active: false
                                                     }])
                                                     toast({
                                                         variant: "default",
@@ -188,7 +220,8 @@ export default function UserResumes({initialData, userId}: Props) {
                             <div className="flex items-center gap-x-2">
                                 <Button type="submit" size="sm" disabled={!isValid || isSubmitting}>Save</Button>
                                 <Button type="button" size="sm" variant="outline"
-                                        onClick={toggleEditing}>Cancel</Button>
+                                        onClick={toggleEditing} disabled={isSubmitting}>Cancel
+                                </Button>
                             </div>
                         }
                     </form>
