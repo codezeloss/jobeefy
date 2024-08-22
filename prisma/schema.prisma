@@ -74,13 +74,12 @@ model Category {
 }
 
 model UserProfile {
-  userId         String       @id @map("_id")
-  fullName       String?
-  email          String?
-  contact        String?
-  appliedJobs    AppliedJob[]
-  resumes        Json?
-  activeResumeId String?
+  userId      String       @id @map("_id")
+  fullName    String?
+  email       String?
+  contact     String?
+  appliedJobs AppliedJob[]
+  resumes     Json?
 }
 
 model AppliedJob {

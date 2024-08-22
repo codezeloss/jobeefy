@@ -14,7 +14,7 @@ export default function ReactQuillPreview({value}: Props) {
         []);
 
     return (
-        <div className="bg-white border shadow rounded">
+        <div className="bg-white border rounded">
             <ReactQuill theme="bubble" value={value} readOnly/>
         </div>
     );
