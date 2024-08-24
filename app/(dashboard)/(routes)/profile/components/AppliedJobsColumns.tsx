@@ -10,7 +10,7 @@ export type AppliedJobs = {
     title: string
     category: string
     company: string
-    createdAt: string
+    appliedAt: string
 }
 
 export const appliedJobsTableColumns: ColumnDef<AppliedJobs>[] = [
@@ -57,7 +57,7 @@ export const appliedJobsTableColumns: ColumnDef<AppliedJobs>[] = [
         },
     },
     {
-        accessorKey: "createdAt",
+        accessorKey: "appliedAt",
         header: ({column}) => {
             return (
                 <Button
@@ -75,7 +75,7 @@ export const appliedJobsTableColumns: ColumnDef<AppliedJobs>[] = [
         cell: ({row}) => {
             const {id: jobId} = row.original
             return (
-                <Link href={`/admin/jobs/${jobId}`}>
+                <Link href={`/browse/${jobId}`}>
                     <Button type="button" variant="ghost" className="text-sm" onClick={() => {
                     }}>
                         <Eye className="size-4"/>

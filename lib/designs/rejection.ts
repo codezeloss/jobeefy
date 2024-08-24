@@ -1,4 +1,4 @@
-export const ThankYouTemplate = `
+export const RejectionTemplate = `
 <!DOCTYPE html>
 <html xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office" lang="en">
 
@@ -153,19 +153,6 @@ export const ThankYouTemplate = `
 \t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</td>
 \t\t\t\t\t\t\t\t\t\t\t\t\t\t</tr>
 \t\t\t\t\t\t\t\t\t\t\t\t\t</table>
-\t\t\t\t\t\t\t\t\t\t\t\t\t<table class="divider_block block-3" width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
-\t\t\t\t\t\t\t\t\t\t\t\t\t\t<tr>
-\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<td class="pad" style="padding-left:10px;padding-right:10px;padding-top:18px;">
-\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<div class="alignment" align="center">
-\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<table border="0" cellpadding="0" cellspacing="0" role="presentation" width="100%" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
-\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<tr>
-\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<td class="divider_inner" style="font-size: 1px; line-height: 1px; border-top: 0px solid #BBBBBB;"><span style="word-break: break-word;">&#8202;</span></td>
-\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</tr>
-\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</table>
-\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</div>
-\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</td>
-\t\t\t\t\t\t\t\t\t\t\t\t\t\t</tr>
-\t\t\t\t\t\t\t\t\t\t\t\t\t</table>
 \t\t\t\t\t\t\t\t\t\t\t\t</td>
 \t\t\t\t\t\t\t\t\t\t\t</tr>
 \t\t\t\t\t\t\t\t\t\t</tbody>
@@ -182,16 +169,7 @@ export const ThankYouTemplate = `
 \t\t\t\t\t\t\t\t\t\t<tbody>
 \t\t\t\t\t\t\t\t\t\t\t<tr>
 \t\t\t\t\t\t\t\t\t\t\t\t<td class="column column-1" width="100%" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; font-weight: 400; text-align: left; vertical-align: top; border-top: 0px; border-right: 0px; border-bottom: 0px; border-left: 0px;">
-\t\t\t\t\t\t\t\t\t\t\t\t\t<table class="image_block block-1" width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
-\t\t\t\t\t\t\t\t\t\t\t\t\t\t<tr>
-\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<td class="pad" style="width:100%;">
-\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<div class="alignment" align="center" style="line-height:10px">
-\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<div style="max-width: 640px;"><img src="https://d1oco4z2z1fhwp.cloudfront.net/templates/default/906/Thanks.png" style="display: block; height: auto; border: 0; width: 100%;" width="640" alt="jobeefy hero image" title="jobeefy hero image" height="auto"></div>
-\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</div>
-\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</td>
-\t\t\t\t\t\t\t\t\t\t\t\t\t\t</tr>
-\t\t\t\t\t\t\t\t\t\t\t\t\t</table>
-\t\t\t\t\t\t\t\t\t\t\t\t\t<table class="divider_block block-2" width="100%" border="0" cellpadding="10" cellspacing="0" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
+\t\t\t\t\t\t\t\t\t\t\t\t\t<table class="divider_block block-1" width="100%" border="0" cellpadding="10" cellspacing="0" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
 \t\t\t\t\t\t\t\t\t\t\t\t\t\t<tr>
 \t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<td class="pad">
 \t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<div class="alignment" align="center">
@@ -204,16 +182,20 @@ export const ThankYouTemplate = `
 \t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</td>
 \t\t\t\t\t\t\t\t\t\t\t\t\t\t</tr>
 \t\t\t\t\t\t\t\t\t\t\t\t\t</table>
-\t\t\t\t\t\t\t\t\t\t\t\t\t<table class="paragraph_block block-3" width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; word-break: break-word;">
+\t\t\t\t\t\t\t\t\t\t\t\t\t<table class="paragraph_block block-2" width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; word-break: break-word;">
 \t\t\t\t\t\t\t\t\t\t\t\t\t\t<tr>
 \t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<td class="pad" style="padding-bottom:15px;padding-left:40px;padding-right:40px;padding-top:20px;">
-\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<div style="color:#1e51c9;font-family:Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif;font-size:46px;line-height:120%;text-align:center;mso-line-height-alt:55.199999999999996px;">
-\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<p style="margin: 0; word-break: break-word;"><span style="word-break: break-word; color: #003188;"><strong>Thank you for applying!<br></strong></span></p>
+\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<div style="color:#1e51c9;font-family:Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif;font-size:46px;font-weight:400;line-height:120%;text-align:center;mso-line-height-alt:55.199999999999996px;">
+\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<p style="margin: 0;">&nbsp;</p>
+\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<p style="margin: 0; word-break: break-word;"><span style="word-break: break-word; color: #ff002b;"><strong>Unfortunately :( </strong></span></p>
+\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<p style="margin: 0; word-break: break-word;">&nbsp;</p>
+\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<p style="margin: 0; word-break: break-word;"><span style="word-break: break-word; color: #003188;"><strong>You've not been selected for the second round</strong></span></p>
+\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<p style="margin: 0;">&nbsp;<span style="word-break: break-word; color: #003188;"><strong>&nbsp;</strong></span></p>
 \t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</div>
 \t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</td>
 \t\t\t\t\t\t\t\t\t\t\t\t\t\t</tr>
 \t\t\t\t\t\t\t\t\t\t\t\t\t</table>
-\t\t\t\t\t\t\t\t\t\t\t\t\t<table class="paragraph_block block-4" width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; word-break: break-word;">
+\t\t\t\t\t\t\t\t\t\t\t\t\t<table class="paragraph_block block-3" width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; word-break: break-word;">
 \t\t\t\t\t\t\t\t\t\t\t\t\t\t<tr>
 \t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<td class="pad" style="padding-left:40px;padding-right:40px;padding-top:15px;">
 \t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<div style="color:#000000;font-family:Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif;font-size:16px;font-weight:400;line-height:150%;text-align:left;mso-line-height-alt:24px;">
@@ -223,29 +205,29 @@ export const ThankYouTemplate = `
 \t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</td>
 \t\t\t\t\t\t\t\t\t\t\t\t\t\t</tr>
 \t\t\t\t\t\t\t\t\t\t\t\t\t</table>
-\t\t\t\t\t\t\t\t\t\t\t\t\t<table class="paragraph_block block-5" width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; word-break: break-word;">
+\t\t\t\t\t\t\t\t\t\t\t\t\t<table class="paragraph_block block-4" width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; word-break: break-word;">
 \t\t\t\t\t\t\t\t\t\t\t\t\t\t<tr>
 \t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<td class="pad" style="padding-left:40px;padding-right:40px;">
-\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<div style="color:#555555;font-family:Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif;font-size:12px;line-height:150%;text-align:left;mso-line-height-alt:18px;">&nbsp;</div>
+\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<div style="color:#555555;font-family:Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif;font-size:12px;font-weight:400;line-height:150%;text-align:left;mso-line-height-alt:18px;">&nbsp;</div>
 \t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</td>
 \t\t\t\t\t\t\t\t\t\t\t\t\t\t</tr>
 \t\t\t\t\t\t\t\t\t\t\t\t\t</table>
-\t\t\t\t\t\t\t\t\t\t\t\t\t<table class="paragraph_block block-6" width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; word-break: break-word;">
+\t\t\t\t\t\t\t\t\t\t\t\t\t<table class="paragraph_block block-5" width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; word-break: break-word;">
 \t\t\t\t\t\t\t\t\t\t\t\t\t\t<tr>
 \t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<td class="pad" style="padding-left:40px;padding-right:40px;">
 \t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<div style="color:#000000;font-family:Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif;font-size:16px;font-weight:400;line-height:150%;text-align:left;mso-line-height-alt:24px;">
-\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<p style="margin: 0; word-break: break-word;"><span style="word-break: break-word; color: #000000;">Thank you for taking the time for applying! We appreciate your interest in joining our team and considering us as a potential employer.<br></span></p>
-\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<p style="margin: 0; word-break: break-word;">&nbsp;</p>
-\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<p style="margin: 0; word-break: break-word;">Your application has been received, and we will carefully review your qualifications and experience. We understand the effort that goes into applying for a job, and we want to assure you that your application will be given through consideration.</p>
-\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<p style="margin: 0; word-break: break-word;">&nbsp;</p>
-\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<p style="margin: 0; word-break: break-word;">We will be in touch soon to update you on the status of your application or to schedule any necessary next steps in the hiring process. In the meantime, if you have any questions or need further information, please don't hesitate to reach out to us!</p>
-\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<p style="margin: 0; word-break: break-word;">&nbsp;</p>
-\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<p style="margin: 0; word-break: break-word;">We look forward to potentially working with you and wish you the best of luck in your job search.</p>
+\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<p style="margin: 0;">Thank you for your interest in the position and for taking the time to go through our application process. We appreciate the effort you put into your application.</p>
+\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<p style="margin: 0;">&nbsp;</p>
+\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<p style="margin: 0;">After careful consideration, we regret to inform you that we will not be moving forward with your application at this time. While your qualifications are impressive, we have decided to pursue other candidates whose experience more closely aligns with our current needs.</p>
+\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<p style="margin: 0;">&nbsp;</p>
+\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<p style="margin: 0;">We encourage you to keep an eye on our careers page for future opportunities that may be a good fit for your skills and experience. We appreciate your interest in our company and wish you the best in your job search.</p>
+\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<p style="margin: 0;">&nbsp;</p>
+\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<p style="margin: 0;">Thank you again for considering us as a potential employer.</p>
 \t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</div>
 \t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</td>
 \t\t\t\t\t\t\t\t\t\t\t\t\t\t</tr>
 \t\t\t\t\t\t\t\t\t\t\t\t\t</table>
-\t\t\t\t\t\t\t\t\t\t\t\t\t<table class="paragraph_block block-7" width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; word-break: break-word;">
+\t\t\t\t\t\t\t\t\t\t\t\t\t<table class="paragraph_block block-6" width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; word-break: break-word;">
 \t\t\t\t\t\t\t\t\t\t\t\t\t\t<tr>
 \t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<td class="pad" style="padding-left:40px;padding-right:40px;padding-top:20px;">
 \t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<div style="color:#555555;font-family:Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif;font-size:16px;font-weight:400;line-height:150%;text-align:left;mso-line-height-alt:24px;">
@@ -255,14 +237,14 @@ export const ThankYouTemplate = `
 \t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</td>
 \t\t\t\t\t\t\t\t\t\t\t\t\t\t</tr>
 \t\t\t\t\t\t\t\t\t\t\t\t\t</table>
-\t\t\t\t\t\t\t\t\t\t\t\t\t<table class="paragraph_block block-8" width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; word-break: break-word;">
+\t\t\t\t\t\t\t\t\t\t\t\t\t<table class="paragraph_block block-7" width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; word-break: break-word;">
 \t\t\t\t\t\t\t\t\t\t\t\t\t\t<tr>
 \t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<td class="pad" style="padding-bottom:10px;padding-left:40px;padding-right:40px;">
 \t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<div style="color:#555555;font-family:Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif;font-size:12px;line-height:150%;text-align:left;mso-line-height-alt:18px;">&nbsp;</div>
 \t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</td>
 \t\t\t\t\t\t\t\t\t\t\t\t\t\t</tr>
 \t\t\t\t\t\t\t\t\t\t\t\t\t</table>
-\t\t\t\t\t\t\t\t\t\t\t\t\t<table class="divider_block block-9" width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
+\t\t\t\t\t\t\t\t\t\t\t\t\t<table class="divider_block block-8" width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
 \t\t\t\t\t\t\t\t\t\t\t\t\t\t<tr>
 \t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<td class="pad" style="padding-left:10px;padding-right:10px;padding-top:60px;">
 \t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<div class="alignment" align="center">
@@ -295,7 +277,7 @@ export const ThankYouTemplate = `
 \t\t\t\t\t\t\t\t\t\t\t\t\t\t<tr>
 \t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<td class="pad" style="padding-bottom:15px;padding-left:20px;padding-right:20px;padding-top:20px;width:100%;">
 \t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<div class="alignment" align="center" style="line-height:10px">
-\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<div style="max-width: 50px;"><img src="https://6477b4cfd7.imgdist.com/pub/bfra/fcnpaxdd/qdg/iu7/s6m/logo.svg" style="display: block; height: auto; border: 0; width: 100%;" width="50" alt="Image" title="Image" height="auto"></div>
+\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<div style="max-width: 50px;"><img src="https://6477b4cfd7.imgdist.com/pub/bfra/fcnpaxdd/qdg/iu7/s6m/logo.svg" style="display: block; height: auto; border: 0; width: 100%;" width="50" alt="jobeefy" title="jobeefy" height="auto"></div>
 \t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</div>
 \t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</td>
 \t\t\t\t\t\t\t\t\t\t\t\t\t\t</tr>

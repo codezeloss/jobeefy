@@ -38,7 +38,7 @@ export default function CustomBreadCrumb({breadCrumbPage, breadCrumbItems}: Prop
 
                 <BreadcrumbSeparator/>
                 <BreadcrumbItem>
-                    <BreadcrumbLink>
+                    <BreadcrumbLink className="font-medium text-black">
                         {breadCrumbPage}
                     </BreadcrumbLink>
                 </BreadcrumbItem>
