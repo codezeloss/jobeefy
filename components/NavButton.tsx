@@ -17,8 +17,8 @@ export default function NavButton({href, icon, label, isActive}: NavButtonProps)
             asChild
             size="sm"
             variant="outline"
-            className={cn("w-full text-sm flex items-center gap-x-1.5 lg:w-auto justify-between dark:hover:bg-white/20 hover:bg-black/20 dark:hover:text-white hover:text-black border-none focus-visible:ring-offset-0 focus-visible:ring-transparent outline-none text-black dark:text-white focus:bg-white/30 transition",
-                isActive ? "bg-slate-100 dark:bg-white/10 text-black dark:text-white font-semibold" : "bg-transparent font-medium")}
+            className={cn("w-full text-sm flex items-center gap-x-1.5 lg:w-auto justify-between dark:hover:bg-blue-100 hover:bg-blue-100/50 dark:hover:text-white hover:text-black border-none focus-visible:ring-offset-0 focus-visible:ring-transparent outline-none text-black dark:text-white focus:bg-blue-100 transition",
+                isActive ? "bg-blue-100/50 dark:bg-white/10 text-black dark:text-white font-medium" : "bg-transparent font-normal")}
         >
             <Link href={href}>
                 {icon} {label}

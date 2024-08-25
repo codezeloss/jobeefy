@@ -3,10 +3,10 @@ import Image from "next/image";
 
 export default function HeaderLogo() {
     return (
-        <Link href="/">
-            <div className="items-center hidden lg:flex">
-                <Image src="/logo.svg" alt="Finance" height={22} width={22}/>
-                <p className="font-semibold text-black dark:text-white text-xl ml-2.5">Jobeefy</p>
+        <Link href="/browse">
+            <div className="items-center flex">
+                <Image className="text-xs" src="/logo.svg" alt="Jobeefy" height={27} width={27}/>
+                <p className="font-semibold text-black dark:text-white text-2xl ml-2.5">Jobeefy</p>
             </div>
         </Link>
     );

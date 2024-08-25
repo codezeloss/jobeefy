@@ -18,11 +18,11 @@ export default function HeaderButtons() {
                 <div className="flex items-center text-sm gap-x-2">
                     <div className="">
                         {isAdmin || isUser ? (
-                            <Link href="/">
+                            <Link href="/browse">
                                 <Button
                                     variant="ghost"
                                     size="sm"
-                                    className="font-semibold text-blue-500 hover:text-blue-600 hover:bg-transparent"
+                                    className="font-semibold text-blue-500 hover:text-blue-600"
                                 >
                                     Job Seeker
                                 </Button>
@@ -32,19 +32,21 @@ export default function HeaderButtons() {
                                 <Button
                                     variant="ghost"
                                     size="sm"
-                                    className="font-semibold text-blue-500 hover:text-blue-600 hover:bg-transparent"
+                                    className="font-semibold text-blue-500 hover:text-blue-600"
                                 >
-                                    Talents Seeker
+                                    Talent Seeker
                                 </Button>
                             </Link>
                         )}
                     </div>
 
-                    <UserButton appearance={{
-                        elements: {
-                            avatarBox: "size-8",
-                        },
-                    }}/>
+                    <UserButton
+                        appearance={{
+                            elements: {
+                                avatarBox: "size-8",
+                            },
+                        }}
+                    />
                 </div>
             </ClerkLoaded>
 

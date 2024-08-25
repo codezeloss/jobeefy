@@ -20,7 +20,7 @@ export default function CustomBreadCrumb({breadCrumbPage, breadCrumbItems}: Prop
         <Breadcrumb>
             <BreadcrumbList>
                 <BreadcrumbItem>
-                    <BreadcrumbLink href="/" className="flex items-center gap-x-2">
+                    <BreadcrumbLink href="/browse" className="flex items-center gap-x-2">
                         <Home className="size-3.5"/>
                         Home
                     </BreadcrumbLink>

@@ -30,7 +30,7 @@ export default async function JobDetailsPage({params}: { params: { jobId: string
 
     const {userId} = auth()
 
-    if (!userId) return redirect("/")
+    if (!userId) return redirect("/browse")
 
     const job = await prismaDB.job.findUnique({
         where: {

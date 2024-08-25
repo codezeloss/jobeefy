@@ -14,6 +14,8 @@ export default async function JobDetailsPage({params}: { params: { jobId: string
     // ** Verify the mongoDB ID
     const validateObjectIdRegex = /^[0-9a-fA-F]{24}$/
 
+    if (!userId) redirect("/sign-in")
+
     const job = await prismaDB.job.findUnique({
         where: {
             id: jobId,
@@ -32,7 +34,7 @@ export default async function JobDetailsPage({params}: { params: { jobId: string
         }
     })
 
-    if (!validateObjectIdRegex.test(jobId) || !job || !userId || !profile) return redirect("/browse")
+    if (!validateObjectIdRegex.test(jobId) || !job || !profile) return redirect("/browse")
 
     const jobs = await getJobs({})
 

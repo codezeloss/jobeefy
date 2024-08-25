@@ -17,7 +17,7 @@ export default async function CompanyDetailsPage({params}: { params: { companyId
         }
     })
 
-    if (!userId || !company) redirect("/")
+    if (!userId || !company) redirect("/browse")
 
     const jobs = await prismaDB.job.findMany({
         where: {

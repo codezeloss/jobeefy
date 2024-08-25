@@ -6,45 +6,41 @@ import {Sheet, SheetContent, SheetTrigger,} from "@/components/ui/sheet"
 import {useMedia} from "react-use"
 import {useState} from "react";
 import {Button} from "@/components/ui/button";
-import {BookmarkCheck, Building2, ChartNoAxesCombined, Compass, House, List, Menu, User} from "lucide-react";
+import {BookmarkCheck, Building2, ChartNoAxesCombined, Compass, List, Menu, User} from "lucide-react";
+import HeaderLogo from "@/components/HeaderLogo";
 
 const userRoutes = [
     {
-        href: "/",
-        label: "Home",
-        icon: <House size={18}/>
-    },
-    {
         href: "/browse",
         label: "Browse",
-        icon: <Compass size={18}/>
+        icon: <Compass size={14}/>
     },
     {
         href: "/profile",
         label: "Profile",
-        icon: <User size={18}/>
+        icon: <User size={14}/>
     },
     {
         href: "/saved",
         label: "Saved Jobs",
-        icon: <BookmarkCheck size={18}/>
+        icon: <BookmarkCheck size={14}/>
     }
 ]
 const adminRoutes = [
     {
         href: "/admin/jobs",
         label: "Jobs",
-        icon: <List size={18}/>
+        icon: <List size={14}/>
     },
     {
         href: "/admin/companies",
         label: "Companies",
-        icon: <Building2 size={18}/>
+        icon: <Building2 size={14}/>
     },
     {
         href: "/admin/analytics",
         label: "Analytics",
-        icon: <ChartNoAxesCombined size={18}/>
+        icon: <ChartNoAxesCombined size={14}/>
     }
 ]
 
@@ -73,6 +69,9 @@ export default function Navigation() {
                     </Button>
                 </SheetTrigger>
                 <SheetContent side="left" className="px-2">
+                    {isOpen && <div className="mx-4 mt-4">
+                        <HeaderLogo/>
+                    </div>}
                     <nav className="flex flex-col gap-y-2 pt-6">
                         {routes.map((route) => (
                             <Button

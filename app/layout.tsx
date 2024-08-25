@@ -12,9 +12,9 @@ export const metadata: Metadata = {
     description: "The only & the best Job Portal you're looking for!",
 };
 
-export default function RootLayout({children}: Readonly<{children: ReactNode}>) {
+export default function RootLayout({children}: Readonly<{ children: ReactNode }>) {
     return (
-        <ClerkProvider>
+        <ClerkProvider afterSignOutUrl="/browse">
             <html lang="en">
             <body className={poppins.className}>
             <ThemeProvider

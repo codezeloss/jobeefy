@@ -31,32 +31,36 @@ export function JobCardItem({job, userId}: Props) {
     const SavedUsersIcon = isSavedByUser ? BookmarkCheck : Bookmark
 
     const onClickSave = async () => {
-        try {
-            setIsBookmarkedLoading(true)
+        if (!userId) {
+            router.replace("/sign-in")
+        } else {
+            try {
+                setIsBookmarkedLoading(true)
 
-            if (isSavedByUser) {
-                await axios.patch(`/api/jobs/${job.id}/unsave-job`, {})
+                if (isSavedByUser) {
+                    await axios.patch(`/api/jobs/${job.id}/unsave-job`, {})
+                    toast({
+                        variant: "default",
+                        title: "✅ Job unsaved successfully"
+                    })
+                } else {
+                    await axios.patch(`/api/jobs/${job.id}/save-job`, {})
+                    toast({
+                        variant: "default",
+                        title: "✅ Job saved successfully"
+                    })
+                }
+
+                router.refresh()
+            } catch (e) {
                 toast({
-                    variant: "default",
-                    title: "✅ Job unsaved successfully"
+                    variant: "destructive",
+                    title: "❌ Something went wrong!",
+                    description: "Cannot save the job, please try again."
                 })
-            } else {
-                await axios.patch(`/api/jobs/${job.id}/save-job`, {})
-                toast({
-                    variant: "default",
-                    title: "✅ Job saved successfully"
-                })
+            } finally {
+                setIsBookmarkedLoading(false)
             }
-
-            router.refresh()
-        } catch (e) {
-            toast({
-                variant: "destructive",
-                title: "❌ Something went wrong!",
-                description: "Cannot save the job, please try again."
-            })
-        } finally {
-            setIsBookmarkedLoading(false)
         }
     }
 
@@ -81,7 +85,7 @@ export function JobCardItem({job, userId}: Props) {
                     </div>
 
                     <div className="flex items-start gap-x-2">
-                        <Image className="w-[50px] h-[50px] rounded border p-2"
+                        <Image className="w-[50px] h-[50px] rounded border p-2 text-xs"
                                src={job?.company?.logo}
                                alt="Company logo"
                                width={100}

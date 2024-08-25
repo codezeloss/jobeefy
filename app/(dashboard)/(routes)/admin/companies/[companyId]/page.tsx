@@ -24,7 +24,7 @@ export default async function CompanyDetailsPage({params}: { params: { companyId
 
     const {userId} = auth()
 
-    if (!userId) return redirect("/")
+    if (!userId) return redirect("/browse")
 
     const company = await prismaDB.company.findUnique({
         where: {

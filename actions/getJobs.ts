@@ -121,6 +121,13 @@ export const getJobs = async ({
             }
         }
 
+        // ---> Filter data based on "savedJobs"
+        if (savedJobs) {
+            query.where.savedUsers = {
+                has: userId
+            }
+        }
+
         return await prismaDB.job.findMany(query)
     } catch (e) {
         console.log("[GET_JOBS]: ", e)

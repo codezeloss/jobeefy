@@ -12,7 +12,7 @@ import FollowedCompanies from "@/app/(dashboard)/(routes)/profile/components/Fol
 export default async function ProfilePage() {
     const {userId} = auth()
 
-    if (!userId) return redirect("/")
+    if (!userId) return redirect("/sign-in")
 
     let profile = await prismaDB.userProfile.findUnique({
         where: {
