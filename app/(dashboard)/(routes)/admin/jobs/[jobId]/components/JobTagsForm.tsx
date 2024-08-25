@@ -90,7 +90,7 @@ export default function JobTagsForm({initialData, jobId}: Props) {
 
     useEffect(() => {
         if (jobTags.length > 0) form.setValue("tags", jobTags)
-    }, [jobTags]);
+    }, [form, jobTags]);
 
 
     return (

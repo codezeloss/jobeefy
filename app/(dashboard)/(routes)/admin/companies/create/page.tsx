@@ -51,7 +51,7 @@ export default function CreateCompanyPage() {
                 <div className="w-full h-full flex flex-col mb-4">
                     <h1 className="font-semibold text-lg md:text-2xl mb-1">Name your Company</h1>
                     <p className="text-xs md:text-sm font-normal text-slate-500">
-                        What would like to name your company? Don't worry, you can change it later!
+                        What would like to name your company? Don&apos;t worry, you can change it later!
                     </p>
                 </div>
 

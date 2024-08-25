@@ -134,7 +134,8 @@ export default function CompanyWhyForm({initialData, companyId}: Props) {
                                                 }
                                             </div>
                                             <p className="text-xs text-right text-neutral-400 mt-1.5">
-                                                *NOTE: Type the company name over here to generate the "Why Join Us?"
+                                                *NOTE: Type the company name over here to generate the &quot;Why Join
+                                                Us?&quot;
                                                 content
                                             </p>
                                         </div>

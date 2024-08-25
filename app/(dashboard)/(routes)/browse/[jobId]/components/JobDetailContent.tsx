@@ -151,7 +151,7 @@ export default function JobDetailContent({jobId, job, userProfile}: Props) {
 
                 {(Array.isArray(job?.attachments) && job?.attachments.length > 0) &&
                     <div className="space-y-2 font-sans">
-                        <h3 className="font-semibold">Job's Attachments:</h3>
+                        <h3 className="font-semibold">Job&apos;s Attachments:</h3>
                         <p className="text-sm text-muted-foreground">Download the attachments to know more about the
                             job</p>
                         <div className="space-y-1">

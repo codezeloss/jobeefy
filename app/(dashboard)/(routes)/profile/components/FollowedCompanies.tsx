@@ -35,7 +35,7 @@ export default function FollowedCompanies({data}: { data: Company[] }) {
                         </div>
                     ))}
                 </div> :
-                <p className="text-muted-foreground text-sm">You're not following any company yet!</p>
+                <p className="text-muted-foreground text-sm">You&apos;re not following any company yet!</p>
             }
         </div>
     );
