@@ -51,7 +51,8 @@ export default function JobCreatePage() {
             <div>
                 <div className="w-full h-full flex flex-col mb-4">
                     <h1 className="font-semibold text-lg md:text-2xl mb-1">Name your Job</h1>
-                    <p className="text-xs md:text-sm font-normal text-slate-500">What would like to name your job? Don't
+                    <p className="text-xs md:text-sm font-normal text-slate-500">What would like to name your job?
+                        Don&apos;t
                         worry,
                         you can change it
                         later!
