@@ -31,7 +31,7 @@ const formSchema = z.object({
 })
 
 
-export default function companySocialsForm({initialData, companyId}: Props) {
+export default function CompanySocialsForm({initialData, companyId}: Props) {
     const router = useRouter()
     const {toast} = useToast()
     const [isEditing, setIsEditing] = useState(false)
