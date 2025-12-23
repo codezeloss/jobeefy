@@ -38,7 +38,7 @@
     "handlebars": "^4.7.8",
     "lodash": "^4.17.21",
     "lucide-react": "^0.435.0",
-    "next": "14.2.5",
+    "next": "14.2.35",
     "next-themes": "^0.3.0",
     "nodemailer": "^6.9.14",
     "prisma": "^5.17.0",
